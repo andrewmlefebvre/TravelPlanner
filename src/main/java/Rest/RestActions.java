@@ -1,7 +1,6 @@
 package Rest;
 
-import Entity.Trip;
-import Entity.User;
+import Entity.*;
 import JDBC.SQLHelper;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+
+import static Entity.Event_Subtype.Dwelling;
 
 @Controller
 public class RestActions {
@@ -20,6 +21,7 @@ public class RestActions {
         return "Hello World";
     }
 
+    //-----------------------CREATE------------------------------
     @GetMapping("/api/create/user/{first}/{last}/{dob}/{address}")
     @ResponseStatus(HttpStatus.CREATED)
     public static @ResponseBody User createUser(@PathVariable("first") String first,
@@ -36,10 +38,10 @@ public class RestActions {
             throw e;
         }
     }
-    //TDOD -- Everything below this
-    @GetMapping("/api/create/userfriend")
+
+    @GetMapping("/api/create/userfriend/{user1}/{user2}")
     @ResponseStatus(HttpStatus.CREATED)
-    public static void createUserFriend(Integer user1ID, Integer user2ID){
+    public static void createUserFriend(@PathVariable("user1") Integer user1ID, @PathVariable("user2") Integer user2ID){
         try{
             SQLHelper sql = new SQLHelper();
             User user1 = sql.getUserWithID(user1ID);
@@ -50,16 +52,50 @@ public class RestActions {
         }
     }
 
-    @GetMapping("/api/create/trip")
+    @GetMapping("/api/create/trip/{name}/{arrival}/{departal}/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
-    public static @ResponseBody Trip createTrip(String name, Date arrival, Date departal){
+    public static @ResponseBody Trip createTrip(@PathVariable("name") String name,
+                                                @PathVariable("arrival") Date arrival,
+                                                @PathVariable("departal") Date departal,
+                                                @PathVariable("userID") Integer userID){
         try {
             SQLHelper sql = new SQLHelper();
             Trip trip = new Trip(null, name, arrival, departal);
             sql.addTrip(trip);
+            User user = sql.getUserWithID(userID);
+            sql.addTripToUser(trip, user);
             return trip;
         }catch(Exception e){
             throw e;
         }
     }
+
+    @GetMapping("/api/create/event/{subtype}/{name}/{location}/{tripID}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public static @ResponseBody Event createEvent(@PathVariable("subtype") String subtype,
+                                                  @PathVariable("name") String name,
+                                                  @PathVariable("location") String location,
+                                                  @PathVariable("tripID") Integer tripID){
+        try {
+            SQLHelper sql = new SQLHelper();
+            Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findFirst().get();
+            Event event = null;
+            if(subtype.equalsIgnoreCase("activity")) {
+                event = new Activity(null, name, location, trip);
+            }else if(subtype.equalsIgnoreCase("transportation")){
+                event = new Transportation(null, name, location, trip);
+            }
+
+            if(event != null){
+                sql.addEvent(event);
+                return event;
+            }
+            return null;
+        }catch(Exception e){
+            throw e;
+        }
+    }
+    //-----------------------CREATE------------------------------
+    //-----------------------GET---------------------------------
+    //-----------------------GET---------------------------------
 }
