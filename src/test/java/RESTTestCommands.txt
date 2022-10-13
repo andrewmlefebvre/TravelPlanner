@@ -1,1 +1,3 @@
 localhost:8080/api/create/user/Andrew/Lefebvre/1999-05-04/TestAve
+localhost:8080/api/create/event/activity/scuba/Hollywood Beach Ave Florida/1
+localhost:8080/api/get/friendsbyuser/1

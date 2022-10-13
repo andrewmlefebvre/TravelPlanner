@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 
 import static Entity.Event_Subtype.Dwelling;
 
@@ -97,5 +98,50 @@ public class RestActions {
     }
     //-----------------------CREATE------------------------------
     //-----------------------GET---------------------------------
+    @GetMapping("/api/get/allusers")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<User> getAllUsers(){
+        SQLHelper sql = new SQLHelper();
+        return sql.getAllUsers();
+    }
+
+    @GetMapping("/api/get/alltrips")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<Trip> getAllTrips(){
+        SQLHelper sql = new SQLHelper();
+        return sql.getAllTrips();
+    }
+
+    @GetMapping("/api/get/tripsbyuser/{userID}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<Trip> getAllTrips(@PathVariable("userID") Integer userID){
+        SQLHelper sql = new SQLHelper();
+        User user = sql.getUserWithID(userID);
+        return sql.getTripsFromUser(user);
+    }
+
+    @GetMapping("/api/get/friendsbyuser/{userID}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<User> getAllFriends(@PathVariable("userID") Integer userID){
+        SQLHelper sql = new SQLHelper();
+        User user = sql.getUserWithID(userID);
+        return sql.getFriendsOfUser(user);
+    }
+
+    @GetMapping("/api/get/userswithname/{first}/{last}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<User> getUsersWithName(@PathVariable("first") String first,
+                                                            @PathVariable("last") String last){
+        SQLHelper sql = new SQLHelper();
+        return sql.getUsersWithName(first, last);
+    }
+
+    @GetMapping("/api/get/eventsfromtrip/{tripID}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<Event> getEventsFromTrip(@PathVariable("tripID") Integer tripID){
+        SQLHelper sql = new SQLHelper();
+        Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().orElse(null);
+        return sql.getEventsFromTrip(trip);
+    }
     //-----------------------GET---------------------------------
 }
