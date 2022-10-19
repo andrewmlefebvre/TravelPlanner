@@ -1,6 +1,5 @@
 -- CREATE SCHEMA CSC536;
 -- CREATE SCHEMA CSC536TEST;
-
 -- USE CSC536;
 USE CSC536Test;
 
@@ -77,8 +76,22 @@ CREATE TABLE IF NOT EXISTS EVENT(
 	ID int NOT NULL AUTO_INCREMENT,
 	subtype varchar(255) NOT NULL,
 	name varchar(255) NOT NULL,
-	location varchar(255) NOT NULL,
-	tripID int NOT NULL,
+	street varchar(255) NOT NULL,
+    city varchar(255) NOT NULL,
+    state varchar(255) NOT NULL,
+    postal varchar(255) NOT NULL,
+	country varchar(255) NOT NULL,
+    tripID int NOT NULL,
+    
+    lat float,
+    lon float,
+    
+    temp float,
+    des varchar(255),
+    feelsLike float,
+    UV float,
+    wind float,
+    
     
     	-- APIID int NOT NULL,
 	-- contactInfo varchar(255),
@@ -122,3 +135,7 @@ END $$
 DELIMITER ;
 
 CALL WIPE();
+
+
+-- SELECT * FROM FRIENDS;
+

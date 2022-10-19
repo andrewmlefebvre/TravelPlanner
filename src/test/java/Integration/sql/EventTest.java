@@ -15,6 +15,8 @@ public class EventTest {
 
     SQLHelper sql;
 
+    public static final Location location = new Location("45 Upper College RD", "Kingston", "RI", "02881", "USA");
+
     @Before
     public void before(){
         sql = new SQLHelper();
@@ -33,9 +35,9 @@ public class EventTest {
         sql.addTrip(trip);
         sql.addTrip(trip2);
 
-        Event event = new Activity(null, "Event1", "A place", trip);
-        Event event2 = new Activity(null, "Event2", "A second place", trip2);
-        Event event3 = new Activity(null, "Event3", "A third place", trip2);
+        Event event = new Activity(null, "Event1", location, trip);
+        Event event2 = new Activity(null, "Event2", location, trip2);
+        Event event3 = new Activity(null, "Event3", location, trip2);
 
         sql.addEvent(event);
         sql.addEvent(event2);

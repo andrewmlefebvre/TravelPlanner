@@ -16,6 +16,9 @@ public class WorkFlowTest {
 
     SQLHelper sql;
 
+    public static final Location location = new Location("45 Upper College RD", "Kingston", "RI", "02881", "USA");
+
+
     @Before
     public void before(){
         sql = new SQLHelper();
@@ -45,9 +48,9 @@ public class WorkFlowTest {
         sql.addTripToUser(trip, friend1);
 
         //Add events to trip
-        Event event1 = new Activity(null, "Event1", "A place", trip);
-        Event event2 = new Transportation(null, "Event2", "A train", trip);
-        Event event3 = new Activity(null, "Event3", "A second place", trip);
+        Event event1 = new Activity(null, "Event1", location, trip);
+        Event event2 = new Transportation(null, "Event2", location, trip);
+        Event event3 = new Activity(null, "Event3", location, trip);
         sql.addEvent(event1);
         sql.addEvent(event2);
         sql.addEvent(event3);

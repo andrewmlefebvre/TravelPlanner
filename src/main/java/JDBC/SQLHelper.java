@@ -15,13 +15,13 @@ public class SQLHelper {
     public String dName;
 
 
-    public static final String getEVENT_SUBTYPES = "SELECT * FROM EVENT_SUBTYPES";
-    public static final String getEVENTS = "SELECT * FROM EVENT";
-    public static final String getTRIPS = "SELECT * FROM TRIP";
-    public static final String getUSERS = "SELECT * FROM USER";
-    public static final String getNEARBY = "SELECT * FROM NEARBY";
-    public static final String getFRIENDS = "SELECT * FROM FRIENDS";
-    public static final String getAPIINFORMATION = "SELECT * FROM APIINFORMATION";
+    public static final String getEVENT_SUBTYPES = "SELECT * FROM EVENT_SUBTYPES;";
+    public static final String getEVENTS = "SELECT * FROM EVENT;";
+    public static final String getTRIPS = "SELECT * FROM TRIP;";
+    public static final String getUSERS = "SELECT * FROM USER;";
+    public static final String getNEARBY = "SELECT * FROM NEARBY;";
+    public static final String getFRIENDS = "SELECT * FROM FRIENDS;";
+    public static final String getAPIINFORMATION = "SELECT * FROM APIINFORMATION;";
 
     public SQLHelper(){
         setDName();
@@ -38,13 +38,18 @@ public class SQLHelper {
         }
     }
 
+    public static void log(String s){
+        System.out.println("Executing: "+s);
+    }
+
     public void setDName(){
         dName = "CSC536";
     }
 
     public List<User> getAllUsers(){
         List out = new LinkedList<>();
-        String q = "SELECT * FROM USER";
+        String q = "SELECT * FROM USER;";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -61,6 +66,7 @@ public class SQLHelper {
     public List<User> getUsersWithName(String first, String last){
         List out = new LinkedList<>();
         String q = "SELECT * FROM USER WHERE USER.firstName = '"+first+"' and USER.lastName = '"+last+"';";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -76,6 +82,7 @@ public class SQLHelper {
     public List<Trip> getTripsFromUser(User user){
         List out = new LinkedList<>();
         String q = "SELECT TRIP.* FROM USER LEFT JOIN USERTRIP on USERTRIP.userID = USER.ID LEFT JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = "+user.getID()+";";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -90,7 +97,8 @@ public class SQLHelper {
     }
     public void addUser(User user){
         if(user.getID() != null) return;
-        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+user.getDob()+"', '"+user.getAddress()+"')";
+        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+user.getDob()+"', '"+user.getAddress()+"');";
+        log(q);
         Integer ID = null;
         try{
             Connection con = JConnection.getConnection(dName);
@@ -109,6 +117,7 @@ public class SQLHelper {
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(getEVENT_SUBTYPES);
+            log(getEVENT_SUBTYPES);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
                 out.add(rs.getString("subtype"));
@@ -121,7 +130,8 @@ public class SQLHelper {
 
     public List<User> getFriendsOfUser(User user){
         List<User> out = new LinkedList<>();
-        String q = "SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = "+user.getID();
+        String q = "SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = "+user.getID()+";";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -137,7 +147,8 @@ public class SQLHelper {
 
     public User getUserWithID(int ID){
         User out = null;
-        String q = "SELECT * FROM USER WHERE USER.ID ="+ID;
+        String q = "SELECT * FROM USER WHERE USER.ID ="+ID+";";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -153,6 +164,7 @@ public class SQLHelper {
 
     public void setFriend(User user, User friend){
         String q = "INSERT INTO FRIENDS VALUES (null,"+user.getID()+","+friend.getID()+");";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -165,6 +177,7 @@ public class SQLHelper {
     public void addTrip(Trip trip){
         if(trip.getID() != null) return;
         String q = "INSERT INTO TRIP VALUES (null,'"+trip.getName()+"','"+trip.getStartDate()+"','"+trip.getEndDate()+"');";
+        log(q);
         Integer ID = null;
         try{
             Connection con = JConnection.getConnection(dName);
@@ -180,7 +193,8 @@ public class SQLHelper {
 
     public List<Trip> getAllTrips(){
         List out = new LinkedList<>();
-        String q = "SELECT * FROM TRIP";
+        String q = "SELECT * FROM TRIP;";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -196,6 +210,7 @@ public class SQLHelper {
 
     public void addTripToUser(Trip trip, User user){
         String q = "INSERT INTO USERTRIP VALUES (null,"+user.getID()+","+trip.getID()+");";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -206,7 +221,8 @@ public class SQLHelper {
     }
 
     public void addEvent(Event event){
-        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation()+"',"+event.getTrip().getID()+");";
+        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+",null, null, null, null, null, null, null);";
+        log(q);
         Integer ID = null;
         try{
             Connection con = JConnection.getConnection(dName);
@@ -223,6 +239,7 @@ public class SQLHelper {
     public List<Event> getEventsFromTrip(Trip trip){
         List out = new LinkedList<>();
         String q = "SELECT * FROM Event WHERE EVENT.tripID = "+trip.getID()+";";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -230,9 +247,9 @@ public class SQLHelper {
             Event_Subtype type;
             while(rs.next()){
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
-                    out.add(new Activity(rs.getInt(1), rs.getString(3), rs.getString(4), trip));
+                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    out.add(new Transportation(rs.getInt(1), rs.getString(3), rs.getString(4), trip));
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
                 } else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }

@@ -11,7 +11,7 @@ public class Transportation extends Event{
     private String flightNumber;
     private Date flightDepartal;
 
-    public Transportation(Integer ID, String name, String location, Trip trip){
+    public Transportation(Integer ID, String name, Location location, Trip trip){
         super(ID, name, location, trip);
         this.setSubtype(Event_Subtype.Transportation);
     }

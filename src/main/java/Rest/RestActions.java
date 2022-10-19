@@ -71,20 +71,24 @@ public class RestActions {
         }
     }
 
-    @GetMapping("/api/create/event/{subtype}/{name}/{location}/{tripID}")
+    @GetMapping("/api/create/event/{subtype}/{name}/{street}/{city}/{state}/{postal}/{country}/{tripID}")
     @ResponseStatus(HttpStatus.CREATED)
     public static @ResponseBody Event createEvent(@PathVariable("subtype") String subtype,
                                                   @PathVariable("name") String name,
-                                                  @PathVariable("location") String location,
+                                                  @PathVariable("street") String street,
+                                                  @PathVariable("city") String city,
+                                                  @PathVariable("state") String state,
+                                                  @PathVariable("postal") String postal,
+                                                  @PathVariable("country") String coountry,
                                                   @PathVariable("tripID") Integer tripID){
         try {
             SQLHelper sql = new SQLHelper();
             Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findFirst().get();
             Event event = null;
             if(subtype.equalsIgnoreCase("activity")) {
-                event = new Activity(null, name, location, trip);
+                event = new Activity(null, name, new Location(street, city, state, postal, coountry), trip);
             }else if(subtype.equalsIgnoreCase("transportation")){
-                event = new Transportation(null, name, location, trip);
+                event = new Transportation(null, name, new Location(street, city, state, postal, coountry), trip);
             }
 
             if(event != null){
