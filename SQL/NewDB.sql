@@ -28,10 +28,6 @@ CREATE TABLE IF NOT EXISTS USER(
 	PRIMARY KEY (ID)
 );
 
--- INSERT INTO USER VALUES (null, 'Andrew', 'Lefebvre', '1999-05-04', 'Smithfield');
--- Select * FROM User;
--- Select * FROM User WHERE USER.firstName = 'Andrew' and USER.lastName = 'Lefebvre';
-
 
 CREATE TABLE IF NOT EXISTS FRIENDS(
 	ID int NOT NULL AUTO_INCREMENT,
@@ -82,18 +78,6 @@ CREATE TABLE IF NOT EXISTS EVENT(
     postal varchar(255) NOT NULL,
 	country varchar(255) NOT NULL,
     tripID int NOT NULL,
-    
-    
-    	-- APIID int NOT NULL,
-	-- contactInfo varchar(255),
-	-- price int,
-	-- isIndoors bit,
-	-- time date,
-	-- checkIn date,
-	-- checkOut date,
-	-- dwellingType varchar(255),
-	-- transportationType varchar(255),
-	-- flightNumber varchar(255),
 
 	PRIMARY KEY (ID),
 	FOREIGN KEY (subtype) REFERENCES EVENT_SUBTYPES(subtype),
