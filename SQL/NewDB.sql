@@ -83,15 +83,6 @@ CREATE TABLE IF NOT EXISTS EVENT(
 	country varchar(255) NOT NULL,
     tripID int NOT NULL,
     
-    lat float,
-    lon float,
-    
-    temp float,
-    des varchar(255),
-    feelsLike float,
-    UV float,
-    wind float,
-    
     
     	-- APIID int NOT NULL,
 	-- contactInfo varchar(255),
@@ -121,10 +112,15 @@ CREATE TABLE IF NOT EXISTS NEARBY(
 CREATE TABLE IF NOT EXISTS APIINFORMATION(
 	ID int NOT NULL AUTO_INCREMENT,
 	eventID int NOT NULL,
-	weatherTemp int,
-	weatherType varchar(255),
-	safetyRating varchar(255),
-	gasPrice float,
+    
+    lat float,
+    lon float,
+    
+    temp float,
+    des varchar(255),
+    feelsLike float,
+    UV float,
+    wind float,
 
 	PRIMARY KEY (ID),
 	FOREIGN KEY (eventID) REFERENCES EVENT(ID)
@@ -137,5 +133,5 @@ DELIMITER ;
 CALL WIPE();
 
 
--- SELECT * FROM FRIENDS;
+
 

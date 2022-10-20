@@ -45,6 +45,7 @@ public class EventTest {
 
         assertTrue(sql.getEventsFromTrip(trip).size() == 1);
         assertTrue(sql.getEventsFromTrip(trip2).size() == 2);
+        assertTrue(sql.getAPIInformationFromEvent(event).getEvent().getID() == event.getID());
     }
 
 

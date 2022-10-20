@@ -14,21 +14,13 @@ public class SQLHelper {
 
     public String dName;
 
-
-    public static final String getEVENT_SUBTYPES = "SELECT * FROM EVENT_SUBTYPES;";
-    public static final String getEVENTS = "SELECT * FROM EVENT;";
-    public static final String getTRIPS = "SELECT * FROM TRIP;";
-    public static final String getUSERS = "SELECT * FROM USER;";
-    public static final String getNEARBY = "SELECT * FROM NEARBY;";
-    public static final String getFRIENDS = "SELECT * FROM FRIENDS;";
-    public static final String getAPIINFORMATION = "SELECT * FROM APIINFORMATION;";
-
     public SQLHelper(){
         setDName();
     }
 
     public void wipe(){
         String q = "CALL WIPE();";
+        log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -113,11 +105,12 @@ public class SQLHelper {
     }
 
     public List<String> getEventSubtypes(){
+        String q = "SELECT * FROM EVENT_SUBTYPES;";
+        log(q);
         List out = new LinkedList<>();
         try{
             Connection con = JConnection.getConnection(dName);
-            PreparedStatement p = con.prepareStatement(getEVENT_SUBTYPES);
-            log(getEVENT_SUBTYPES);
+            PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
                 out.add(rs.getString("subtype"));
@@ -221,7 +214,7 @@ public class SQLHelper {
     }
 
     public void addEvent(Event event){
-        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+",null, null, null, null, null, null, null);";
+        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+");";
         log(q);
         Integer ID = null;
         try{
@@ -234,6 +227,7 @@ public class SQLHelper {
             e.printStackTrace();
         }
         event.setID(ID);
+        addAPIInformation(event);
     }
 
     public List<Event> getEventsFromTrip(Trip trip){
@@ -253,6 +247,67 @@ public class SQLHelper {
                 } else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    public APIInformation addAPIInformation(Event event){
+        APIInformation i = new APIInformation(event);
+        String q = "INSERT INTO APIINFORMATION VALUES (null, "+event.getID()+", null, null, null, null, null, null, null);";
+        log(q);
+        Integer ID = null;
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q, Statement.RETURN_GENERATED_KEYS);
+            ResultSet rs = p.getGeneratedKeys();
+            while(rs.next()) ID = rs.getInt(1);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        i.setID(ID);
+        return i;
+    }
+
+    public List<Event> getAllEvents(){
+        List out = new LinkedList<>();
+        String q = "SELECT * FROM Event;";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            Event_Subtype type;
+            while(rs.next()){
+                int tripID = rs.getInt("tripID");
+                Trip trip = getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().orElseGet(null);
+                if(rs.getString(2).equalsIgnoreCase("Activity")) {
+                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                } else{
+                    throw new Exception("UNDEFINED EVENT TYPE");
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    public APIInformation getAPIInformationFromEvent(Event event){
+        APIInformation out = null;
+        String q = "SELECT * FROM APIInformation WHERE APIInformation.eventID = "+event.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()){
+                out = new APIInformation(rs.getInt("ID"), event, rs.getFloat("lat"), rs.getFloat("lon"), rs.getFloat("temp"), rs.getString("des"), rs.getFloat("feelsLike"), rs.getFloat("UV"), rs.getFloat("wind"));
             }
         }catch(Exception e){
             e.printStackTrace();

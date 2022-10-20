@@ -72,5 +72,6 @@ public class WorkFlowTest {
         assertTrue(sql.getEventsFromTrip(trip).stream().filter(e -> e.getSubtype() == Event_Subtype.Activity).count() == 2);
         assertTrue(sql.getEventsFromTrip(trip).stream().filter(e -> e.getSubtype() == Event_Subtype.Transportation).count() == 1);
         assertTrue(sql.getEventsFromTrip(trip).stream().filter(e -> e.getSubtype() == Event_Subtype.Dwelling).count() == 0);
+        assertTrue(sql.getAllEvents().size() == 3);
     }
 }
