@@ -24,6 +24,7 @@ hs_err_pid*
 
 # intellij files
 .idea/*
+TravelPlanner/.idea/*
 
 # dumb mac stuff
 .DS_Store
