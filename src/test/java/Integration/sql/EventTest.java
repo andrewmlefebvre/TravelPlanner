@@ -48,6 +48,28 @@ public class EventTest {
         assertTrue(sql.getAPIInformationFromEvent(event).getEvent().getID() == event.getID());
     }
 
+    @Test
+    public void testAddEventAPIInfo(){
+        Trip trip = new Trip(null, "Trip1", new Date(2000, 01, 02), new Date(2000, 01, 05));
+        sql.addTrip(trip);
+
+        Event event = new Activity(null, "Event1", location, trip);
+        Event event2 = new Activity(null, "Event2", location, trip);
+        sql.addEvent(event);
+        sql.addEvent(event2);
+
+        sql.addCoordInformation(event);
+
+        assertTrue(Math.abs(sql.getAPIInformationFromEvent(event).getLat() - 41.48691f) < 0.0001f);
+        assertTrue(Math.abs(sql.getAPIInformationFromEvent(event).getLon() - -71.52561f) < 0.0001f);
+
+        sql.addWeatherInformation(event);
+
+        assertTrue(sql.getAPIInformationFromEvent(event).getFeelsLike() < 150f && sql.getAPIInformationFromEvent(event).getFeelsLike() > 0f);
+
+
+    }
+
 
 
 }

@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.sql.Date;
 import java.util.List;
+import java.lang.Math;
 
 import static org.junit.Assert.*;
 
@@ -19,8 +20,8 @@ public class APItest {
     public void fowardGeoCodeTest(){
         LocationCoords c =  GeoAPI.fowardGeoCode(location.getStreet(), location.getCity(), location.getState(), location.getPostal(), location.getCountry());
         int i = 0;
-        assertTrue(c.getLat() == 41.48691f);
-        assertTrue(c.getLon() == -71.52561f);
+        assertTrue(Math.abs(c.getLat() - 41.48691f) < 0.0001f);
+        assertTrue(Math.abs(c.getLon() - -71.52561f) < 0.0001f);
     }
 
     @Test

@@ -1,7 +1,9 @@
 package JDBC;
 
+import API.APIUtil;
+import API.LocationCoords;
+import API.Weather;
 import Entity.*;
-import lombok.AllArgsConstructor;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,7 +41,7 @@ public class SQLHelper {
     }
 
     public List<User> getAllUsers(){
-        List out = new LinkedList<>();
+        List<User> out = new LinkedList<>();
         String q = "SELECT * FROM USER;";
         log(q);
         try{
@@ -56,7 +58,7 @@ public class SQLHelper {
     }
 
     public List<User> getUsersWithName(String first, String last){
-        List out = new LinkedList<>();
+        List<User> out = new LinkedList<>();
         String q = "SELECT * FROM USER WHERE USER.firstName = '"+first+"' and USER.lastName = '"+last+"';";
         log(q);
         try{
@@ -72,7 +74,7 @@ public class SQLHelper {
         return out;
     }
     public List<Trip> getTripsFromUser(User user){
-        List out = new LinkedList<>();
+        List<Trip> out = new LinkedList<>();
         String q = "SELECT TRIP.* FROM USER LEFT JOIN USERTRIP on USERTRIP.userID = USER.ID LEFT JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = "+user.getID()+";";
         log(q);
         try{
@@ -107,7 +109,7 @@ public class SQLHelper {
     public List<String> getEventSubtypes(){
         String q = "SELECT * FROM EVENT_SUBTYPES;";
         log(q);
-        List out = new LinkedList<>();
+        List<String> out = new LinkedList<>();
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
@@ -185,7 +187,7 @@ public class SQLHelper {
     }
 
     public List<Trip> getAllTrips(){
-        List out = new LinkedList<>();
+        List<Trip> out = new LinkedList<>();
         String q = "SELECT * FROM TRIP;";
         log(q);
         try{
@@ -231,14 +233,13 @@ public class SQLHelper {
     }
 
     public List<Event> getEventsFromTrip(Trip trip){
-        List out = new LinkedList<>();
+        List<Event> out = new LinkedList<>();
         String q = "SELECT * FROM Event WHERE EVENT.tripID = "+trip.getID()+";";
         log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
-            Event_Subtype type;
             while(rs.next()){
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
@@ -254,7 +255,7 @@ public class SQLHelper {
         return out;
     }
 
-    public APIInformation addAPIInformation(Event event){
+    public void addAPIInformation(Event event){
         APIInformation i = new APIInformation(event);
         String q = "INSERT INTO APIINFORMATION VALUES (null, "+event.getID()+", null, null, null, null, null, null, null);";
         log(q);
@@ -269,21 +270,19 @@ public class SQLHelper {
             e.printStackTrace();
         }
         i.setID(ID);
-        return i;
     }
 
     public List<Event> getAllEvents(){
-        List out = new LinkedList<>();
+        List<Event> out = new LinkedList<>();
         String q = "SELECT * FROM Event;";
         log(q);
         try{
             Connection con = JConnection.getConnection(dName);
             PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
-            Event_Subtype type;
             while(rs.next()){
                 int tripID = rs.getInt("tripID");
-                Trip trip = getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().orElseGet(null);
+                Trip trip = getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().get();
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
@@ -313,6 +312,32 @@ public class SQLHelper {
             e.printStackTrace();
         }
         return out;
+    }
+
+    public void addCoordInformation(Event event){
+        LocationCoords coords = APIUtil.getCoordsForEvent(event);
+        String q = "UPDATE APIINFORMATION SET lat = "+coords.getLat()+", lon = "+coords.getLon()+ " WHERE eventID ="+event.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void addWeatherInformation(Event event){
+        Weather w = APIUtil.getWeatherForEvent(event);
+        String q = "UPDATE APIINFORMATION SET temp = "+w.getTemp()+", des = '"+w.getDes()+"', feelsLike = "+w.getFeelsLike()+", UV = "+w.getUV()+", wind = "+w.getWind()+" WHERE eventID ="+event.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 
