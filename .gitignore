@@ -23,8 +23,8 @@
 hs_err_pid*
 
 # intellij files
-**.idea/**
-**.VSCode/**
+.idea/*
+TravelPlanner/.idea/*
 # dumb mac stuff
 **.DS_Store/**
 
