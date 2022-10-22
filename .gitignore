@@ -26,7 +26,7 @@ hs_err_pid*
 *.idea/*
 *.VSCode/*
 # dumb mac stuff
-.DS_Store
+*.DS_Store
 
 # react
 
