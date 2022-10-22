@@ -25,30 +25,30 @@ hs_err_pid*
 # intellij files
 .idea/*
 TravelPlanner/.idea/*
-
+TravelPlanner/VSCode.*
 # dumb mac stuff
 .DS_Store
 
 # react
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+TravelPlanner/node_modules
+TravelPlanner/.pnp
+TravelPlanner/pnp.js
 
 # testing
-/coverage
+TravelPlanner/coverage
 
 # production
-/build
+TravelPlanner/build
 
 # misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+TravelPlanner/.DS_Store
+TravelPlanner/.env.local
+TravelPlanner/.env.development.local
+TravelPlanner/.env.test.local
+.TravelPlanner/env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+TravelPlanner/npm-debug.log*
+TravelPlanner/yarn-debug.log*
+TravelPlanner/yarn-error.log*
