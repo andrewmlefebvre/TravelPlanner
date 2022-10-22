@@ -32,6 +32,7 @@ TravelPlanner/VSCode.*
 # react
 
 # dependencies
+TravelPlanner/node_modules/*
 TravelPlanner/node_modules
 TravelPlanner/.pnp
 TravelPlanner/pnp.js
@@ -47,7 +48,7 @@ TravelPlanner/.DS_Store
 TravelPlanner/.env.local
 TravelPlanner/.env.development.local
 TravelPlanner/.env.test.local
-.TravelPlanner/env.production.local
+TravelPlanner/env.production.local
 
 TravelPlanner/npm-debug.log*
 TravelPlanner/yarn-debug.log*
