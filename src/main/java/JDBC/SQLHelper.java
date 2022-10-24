@@ -49,7 +49,7 @@ public class SQLHelper {
             PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
-                out.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5)));
+                out.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6)));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -66,7 +66,7 @@ public class SQLHelper {
             PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
-                out.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5)));
+                out.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6)));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class SQLHelper {
     }
     public void addUser(User user){
         if(user.getID() != null) return;
-        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+user.getDob()+"', '"+user.getAddress()+"');";
+        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+user.getDob()+"', '"+user.getAddress()+"','"+user.getUserName()+"');";
         log(q);
         Integer ID = null;
         try{
@@ -149,7 +149,7 @@ public class SQLHelper {
             PreparedStatement p = con.prepareStatement(q);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
-                out = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5));
+                out = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6));
             }
         }catch(Exception e){
             e.printStackTrace();
@@ -338,6 +338,23 @@ public class SQLHelper {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public User getUserWithUserName(String userName){
+        User user = null;
+        String q = "SELECT User.* FROM USER WHERE USER.userName = '"+userName+"';";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()){
+                user = new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getDate(4), rs.getString(5), rs.getString(6));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return user;
     }
 
 

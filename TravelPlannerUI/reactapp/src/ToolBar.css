@@ -1,0 +1,38 @@
+ul {
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #121216;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color:white;
+}
+
+li{
+    padding: 14px 16px;
+    color:white;
+    text-decoration: none;
+    border-right: 1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+  }
+
+a, a:link, a:visited {
+    color: #FFFAFA;
+    text-decoration: none;
+  }
+
+ .active {
+    background-color: #04AA6D;
+  }

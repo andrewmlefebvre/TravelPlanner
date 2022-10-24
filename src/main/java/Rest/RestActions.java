@@ -14,6 +14,7 @@ import java.util.List;
 import static Entity.Event_Subtype.Dwelling;
 
 @Controller
+@CrossOrigin(origins = "http://localhost:3000")
 public class RestActions {
 
     @GetMapping("/HelloWorld")
@@ -23,16 +24,17 @@ public class RestActions {
     }
 
     //-----------------------CREATE------------------------------
-    @GetMapping("/api/create/user/{first}/{last}/{dob}/{address}")
+    @GetMapping("/api/create/user/{first}/{last}/{dob}/{address}/{userName}")
     @ResponseStatus(HttpStatus.CREATED)
     public static @ResponseBody User createUser(@PathVariable("first") String first,
                                   @PathVariable("last") String last,
                                   @PathVariable("dob") @DateTimeFormat(pattern = "yyyy-MM-dd")  java.util.Date dob,
-                                  @PathVariable("address") String address){
+                                  @PathVariable("address") String address,
+                                  @PathVariable("userName") String userName){
         System.out.println(dob);
         try{
             SQLHelper sql = new SQLHelper();
-            User user = new User(null, first, last, new Date(dob.getTime()), address);
+            User user = new User(null, first, last, new Date(dob.getTime()), address, userName);
             sql.addUser(user);
             return user;
         }catch(Exception e){
@@ -138,6 +140,13 @@ public class RestActions {
                                                             @PathVariable("last") String last){
         SQLHelper sql = new SQLHelper();
         return sql.getUsersWithName(first, last);
+    }
+
+    @GetMapping("/api/get/userswithusername/{userName}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody User getUsersWithUserName(@PathVariable("userName") String userName){
+        SQLHelper sql = new SQLHelper();
+        return sql.getUserWithUserName(userName);
     }
 
     @GetMapping("/api/get/eventsfromtrip/{tripID}")

@@ -28,12 +28,12 @@ public class WorkFlowTest {
     @Test
     public void testBareCreationWorkFlow(){
         //Primary user
-        User primaryUser = new User(null, "Andrew", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882");
+        User primaryUser = new User(null, "Andrew", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
         sql.addUser(primaryUser);
 
         //Friends of user
-        User friend1 = new User(null, "Friend1", "Test", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882");
-        User friend2 = new User(null, "Friend2", "Test", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882");
+        User friend1 = new User(null, "Friend1", "Test", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2");
+        User friend2 = new User(null, "Friend2", "Test", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User3");
         sql.addUser(friend1);
         sql.addUser(friend2);
 
