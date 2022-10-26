@@ -5,10 +5,7 @@ import API.LocationCoords;
 import API.Weather;
 import Entity.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -32,8 +29,12 @@ public class SQLHelper {
         }
     }
 
+    public String getDobString(Date date){
+        return String.valueOf(date.getYear())+"-"+String.valueOf(date.getMonth())+"-"+String.valueOf(date.getDate());
+    }
+
     public static void log(String s){
-        System.out.println("Executing: "+s);
+        System.out.println(s);
     }
 
     public void setDName(){
@@ -75,7 +76,7 @@ public class SQLHelper {
     }
     public List<Trip> getTripsFromUser(User user){
         List<Trip> out = new LinkedList<>();
-        String q = "SELECT TRIP.* FROM USER LEFT JOIN USERTRIP on USERTRIP.userID = USER.ID LEFT JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = "+user.getID()+";";
+        String q = "SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = "+user.getID()+";";
         log(q);
         try{
             Connection con = JConnection.getConnection(dName);
@@ -91,7 +92,7 @@ public class SQLHelper {
     }
     public void addUser(User user){
         if(user.getID() != null) return;
-        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+user.getDob()+"', '"+user.getAddress()+"','"+user.getUserName()+"');";
+        String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+getDobString(user.getDob())+"', '"+user.getAddress()+"','"+user.getUserName()+"');";
         log(q);
         Integer ID = null;
         try{
@@ -171,7 +172,7 @@ public class SQLHelper {
 
     public void addTrip(Trip trip){
         if(trip.getID() != null) return;
-        String q = "INSERT INTO TRIP VALUES (null,'"+trip.getName()+"','"+trip.getStartDate()+"','"+trip.getEndDate()+"');";
+        String q = "INSERT INTO TRIP VALUES (null,'"+trip.getName()+"','"+getDobString(trip.getStartDate())+"','"+getDobString(trip.getEndDate())+"');";
         log(q);
         Integer ID = null;
         try{
