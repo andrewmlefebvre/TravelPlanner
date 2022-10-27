@@ -24,7 +24,7 @@ public class Presentation2Test {
     @Test
     public void generateSQL(){
         for(int i = 1; i < 11; i++) {
-            sql.addUser(new User(null, "User"+i, "UserLastName"+i, new Date(2000, 5, 3), "21 Test Ave Kingston RI 02882", "User"+i));
+            sql.addUser(new User(null, "User"+i, "UserLastName"+i, new Date(2000, 5, 3), "21 Test Ave Kingston RI 02882", "User"+i, "password"));
         }
 
         for(int i = 1; i < 11; i++) {

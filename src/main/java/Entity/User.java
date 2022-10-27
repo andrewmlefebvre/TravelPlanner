@@ -19,5 +19,6 @@ public class User {
     private Date dob;
     private String address;
     private String userName;
+    private String password;
 
 }

@@ -24,7 +24,7 @@ public class UserTest {
 
     @Test
     public void testCreateAndGetUser(){
-        User user = new User(null, "Andrew", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
+        User user = new User(null, "Andrew", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1", "password");
         SQLHelper sql = new SQLHelper();
         sql.addUser(user);
         List<User> recievedUser = sql.getUsersWithName("Andrew", "Lefebvre");
@@ -34,9 +34,9 @@ public class UserTest {
 
     @Test
     public void testGetAllUsers(){
-        User user1 = new User(null, "Test1", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
-        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2");
-        User user3 = new User(null, "Test3", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User3");
+        User user1 = new User(null, "Test1", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1", "password");
+        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2", "password");
+        User user3 = new User(null, "Test3", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User3", "password");
 
         sql.addUser(user1);
         sql.addUser(user2);
@@ -47,9 +47,9 @@ public class UserTest {
 
     @Test
     public void testGetFriends(){
-        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
-        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2");
-        User user3 = new User(null, "Test3", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User3");
+        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1", "password");
+        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2", "password");
+        User user3 = new User(null, "Test3", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User3", "password");
 
         sql.addUser(user1);
         sql.addUser(user2);
@@ -66,8 +66,8 @@ public class UserTest {
 
     @Test
     public void testUserName(){
-        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
-        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2");
+        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1", "password");
+        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2", "password");
         sql.addUser(user1);
         sql.addUser(user2);
 

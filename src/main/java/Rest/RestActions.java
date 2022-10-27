@@ -31,11 +31,12 @@ public class RestActions {
                                   @PathVariable("last") String last,
                                   @PathVariable("dob") @DateTimeFormat(pattern = "yyyy-MM-dd")  java.util.Date dob,
                                   @PathVariable("address") String address,
-                                  @PathVariable("userName") String userName){
+                                  @PathVariable("userName") String userName,
+                                  @PathVariable("userName") String password){
         System.out.println(dob);
         try{
             SQLHelper sql = new SQLHelper();
-            User user = new User(null, first, last, new Date(dob.getTime()), address, userName);
+            User user = new User(null, first, last, new Date(dob.getTime()), address, userName, password);
             sql.addUser(user);
             return user;
         }catch(Exception e){
@@ -147,7 +148,6 @@ public class RestActions {
     @ResponseStatus(HttpStatus.OK)
     public static @ResponseBody List<User> getUsersWithUserName(@PathVariable("userName") String userName){
         SQLHelper sql = new SQLHelper();
-        System.out.println(sql.getUserWithUserName(userName).getUserName());
         List<User> out = new LinkedList<>();
         out.add(sql.getUserWithUserName(userName));
         return out;
@@ -159,6 +159,15 @@ public class RestActions {
         SQLHelper sql = new SQLHelper();
         Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().orElse(null);
         return sql.getEventsFromTrip(trip);
+    }
+
+    @GetMapping("/api/get/login/{userName}/{password}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<User> getUsersWithUserName(@PathVariable("userName") String userName, @PathVariable("password") String password){
+        SQLHelper sql = new SQLHelper();
+        List<User> out = new LinkedList<>();
+        out.add(sql.login(userName, password));
+        return out;
     }
     //-----------------------GET---------------------------------
     //-----------------------UPDATE---------------------------------

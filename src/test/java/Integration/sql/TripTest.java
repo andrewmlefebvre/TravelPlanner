@@ -41,8 +41,8 @@ public class TripTest {
         sql.addTrip(trip);
         sql.addTrip(trip2);
 
-        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1");
-        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2");
+        User user1 = new User(null, "Test1", "TEsTest", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User1", "password");
+        User user2 = new User(null, "Test2", "Lefebvre", new Date(1999, 05, 03), "21 Test Ave Kingston RI 02882", "User2", "password");
 
         sql.addUser(user1);
         sql.addUser(user2);
