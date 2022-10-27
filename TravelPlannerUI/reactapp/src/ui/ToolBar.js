@@ -12,13 +12,16 @@ function ToolBar(){
             <div className='tool'>
                 <ul >
                     <li>
-                    <Link to="/App">App</Link>
+                    <Link to="/UserScreen">My Profile</Link>
                     </li>
                     <li>
-                    <Link to="/MainPage">MainPage</Link>
+                    <Link to="/UserScreen">Trips</Link>
                     </li>
                     <li>
-                    <Link to="/MainPage">MainPage</Link>
+                    <Link to="/UserScreen">Planner</Link>
+                    </li>
+                    <li>
+                    <Link to="/UserScreen">Admin</Link>
                     </li>
                 </ul>
             </div>

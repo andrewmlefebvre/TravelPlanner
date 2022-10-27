@@ -1,7 +1,7 @@
 -- CREATE SCHEMA CSC536;
 -- CREATE SCHEMA CSC536TEST;
--- USE CSC536;
-USE CSC536Test;
+USE CSC536;
+-- USE CSC536Test;
 
 DROP PROCEDURE IF EXISTS WIPE;
 
@@ -123,3 +123,5 @@ SELECT * FROM USER;
 INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '3899-06-03', '21 Test Ave Kingston RI 02882','User1');
 SELECT User.* FROM USER WHERE USER.userName = 'User1';
 */
+
+INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '3899-06-03', '21 Test Ave Kingston RI 02882','User1', 'password');

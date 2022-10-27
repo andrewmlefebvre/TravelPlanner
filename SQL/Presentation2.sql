@@ -1,16 +1,16 @@
 USE CSC536Test;
 
 CALL WIPE();
-INSERT INTO USER VALUES (null, 'User1', 'UserLastName1', '2000-5-3', '21 Test Ave Kingston RI 02882','User1');
-INSERT INTO USER VALUES (null, 'User2', 'UserLastName2', '2000-5-3', '21 Test Ave Kingston RI 02882','User2');
-INSERT INTO USER VALUES (null, 'User3', 'UserLastName3', '2000-5-3', '21 Test Ave Kingston RI 02882','User3');
-INSERT INTO USER VALUES (null, 'User4', 'UserLastName4', '2000-5-3', '21 Test Ave Kingston RI 02882','User4');
-INSERT INTO USER VALUES (null, 'User5', 'UserLastName5', '2000-5-3', '21 Test Ave Kingston RI 02882','User5');
-INSERT INTO USER VALUES (null, 'User6', 'UserLastName6', '2000-5-3', '21 Test Ave Kingston RI 02882','User6');
-INSERT INTO USER VALUES (null, 'User7', 'UserLastName7', '2000-5-3', '21 Test Ave Kingston RI 02882','User7');
-INSERT INTO USER VALUES (null, 'User8', 'UserLastName8', '2000-5-3', '21 Test Ave Kingston RI 02882','User8');
-INSERT INTO USER VALUES (null, 'User9', 'UserLastName9', '2000-5-3', '21 Test Ave Kingston RI 02882','User9');
-INSERT INTO USER VALUES (null, 'User10', 'UserLastName10', '2000-5-3', '21 Test Ave Kingston RI 02882','User10');
+INSERT INTO USER VALUES (null, 'User1', 'UserLastName1', '2000-5-3', '21 Test Ave Kingston RI 02882','User1', 'Password');
+INSERT INTO USER VALUES (null, 'User2', 'UserLastName2', '2000-5-3', '21 Test Ave Kingston RI 02882','User2', 'Password');
+INSERT INTO USER VALUES (null, 'User3', 'UserLastName3', '2000-5-3', '21 Test Ave Kingston RI 02882','User3', 'Password');
+INSERT INTO USER VALUES (null, 'User4', 'UserLastName4', '2000-5-3', '21 Test Ave Kingston RI 02882','User4', 'Password');
+INSERT INTO USER VALUES (null, 'User5', 'UserLastName5', '2000-5-3', '21 Test Ave Kingston RI 02882','User5', 'Password');
+INSERT INTO USER VALUES (null, 'User6', 'UserLastName6', '2000-5-3', '21 Test Ave Kingston RI 02882','User6', 'Password');
+INSERT INTO USER VALUES (null, 'User7', 'UserLastName7', '2000-5-3', '21 Test Ave Kingston RI 02882','User7', 'Password');
+INSERT INTO USER VALUES (null, 'User8', 'UserLastName8', '2000-5-3', '21 Test Ave Kingston RI 02882','User8', 'Password');
+INSERT INTO USER VALUES (null, 'User9', 'UserLastName9', '2000-5-3', '21 Test Ave Kingston RI 02882','User9', 'Password');
+INSERT INTO USER VALUES (null, 'User10', 'UserLastName10', '2000-5-3', '21 Test Ave Kingston RI 02882','User10', 'Password');
 INSERT INTO TRIP VALUES (null,'Trip1','2023-1-2','2023-1-5');
 INSERT INTO TRIP VALUES (null,'Trip2','2023-1-2','2023-1-5');
 INSERT INTO TRIP VALUES (null,'Trip3','2023-1-2','2023-1-5');
