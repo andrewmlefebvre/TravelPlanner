@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import static Entity.Event_Subtype.Dwelling;
@@ -144,9 +145,12 @@ public class RestActions {
 
     @GetMapping("/api/get/userswithusername/{userName}")
     @ResponseStatus(HttpStatus.OK)
-    public static @ResponseBody User getUsersWithUserName(@PathVariable("userName") String userName){
+    public static @ResponseBody List<User> getUsersWithUserName(@PathVariable("userName") String userName){
         SQLHelper sql = new SQLHelper();
-        return sql.getUserWithUserName(userName);
+        System.out.println(sql.getUserWithUserName(userName).getUserName());
+        List<User> out = new LinkedList<>();
+        out.add(sql.getUserWithUserName(userName));
+        return out;
     }
 
     @GetMapping("/api/get/eventsfromtrip/{tripID}")

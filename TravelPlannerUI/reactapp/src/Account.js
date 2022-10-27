@@ -5,41 +5,36 @@ import ToolBar from "./ToolBar";
 
 export default class Account extends React.Component{
 
-    #userName;
+    #userNameLookUp
 
-    async userLookUp(userName_) {
+    constructor(){
+        super();
+        this.userNameLookUp = {};
+    }
+
+    async userLookUp() {
         //alert("http://localhost:8080/api/get/userswithusername/".concat(this.userName));
-        const response = await fetch("http://localhost:8080/api/get/userswithusername/".concat(userName_), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        const response = await fetch("http://localhost:8080/api/get/userswithusername/".concat(document.getElementById("userInput").value), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
         const json = await response.json();
-        alert(json.count);
+        alert(JSON.stringify(json));
+
+        this.userNameLookUp = json;
     
     }
 
 
-    setUserName = () => {
-        this.userName = document.getElementById("userInput").value;
-    }
-
 
     render() {
-        if(localStorage.getItem("userName") == null){
-            return (
+        return (
             <div>
                 <ToolBar />
-                <input 
-          type="text" 
-          value={this.userName}
-          id='userInput'
-          onChange={this.setUserName}
-        />
-            <div>
-                <button className="button" onClick={() => this.userLookUp(this.userName)}></button>
+                <input type="text" value={this.userName} id='userInput'/>
+                <div>
+                    <button className="button" onClick={() => this.userLookUp()}></button>
+                </div>
+                
             </div>
-            </div>
-            );
-        }else{
-            //TODO Account Information
-        }
+        );
     }
 
 
