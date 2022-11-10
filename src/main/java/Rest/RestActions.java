@@ -122,7 +122,7 @@ public class RestActions {
 
     @GetMapping("/api/get/tripsbyuser/{userID}")
     @ResponseStatus(HttpStatus.OK)
-    public static @ResponseBody List<Trip> getAllTrips(@PathVariable("userID") Integer userID){
+    public static @ResponseBody List<Trip> getTripsByUser(@PathVariable("userID") Integer userID){
         SQLHelper sql = new SQLHelper();
         User user = sql.getUserWithID(userID);
         return sql.getTripsFromUser(user);
@@ -169,6 +169,7 @@ public class RestActions {
         out.add(sql.login(userName, password));
         return out;
     }
+
     //-----------------------GET---------------------------------
     //-----------------------UPDATE---------------------------------
     //-----------------------UPDATE---------------------------------

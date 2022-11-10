@@ -1,6 +1,7 @@
 USE CSC536Test;
 
 CALL WIPE();
+
 INSERT INTO USER VALUES (null, 'User1', 'UserLastName1', '2000-5-3', '21 Test Ave Kingston RI 02882','User1', 'Password');
 INSERT INTO USER VALUES (null, 'User2', 'UserLastName2', '2000-5-3', '21 Test Ave Kingston RI 02882','User2', 'Password');
 INSERT INTO USER VALUES (null, 'User3', 'UserLastName3', '2000-5-3', '21 Test Ave Kingston RI 02882','User3', 'Password');
@@ -102,6 +103,10 @@ SELECT * FROM EVENT;
 DELETE trip FROM trip WHERE trip.ID = 1;
 
 SELECT * FROM EVENT;
+
+-- CREATE VIEW newview AS SELECT user.*, friends.friendID FROM user JOIN friends on FRIENDS.userID = user.ID;
+-- SELECT * FROM newview;
+
 
 
 

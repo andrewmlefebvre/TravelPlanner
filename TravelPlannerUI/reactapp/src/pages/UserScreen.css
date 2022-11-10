@@ -12,11 +12,9 @@ body{
 }
 
 .split {
-  height: 100%;
   width: 50%;
   position: fixed;
   z-index: 1;
-  top: 0;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -29,6 +27,20 @@ body{
 /* Control the right side */
 .right {
   right: 0;
+  top: 0;
+  height: 100%;
+}
+
+.topleft{
+  left:0;
+  top:30%;
+  height:21%;
+}
+
+.bottomleft{
+  left:0;
+  bottom:13%;
+  height:15%;
 }
 
 /* If you want the content centered horizontally and vertically */
@@ -55,6 +67,24 @@ body{
   background-color: rgba(133, 125, 125, 0.2);
 }
 
-.halfscreen h1{
+.quarterscreen {
+  position: fixed;
+  left: 25%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 47%;
+  height: 40%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(133, 125, 125, 0.2);
+}
+
+.halfscreen h2{
+  color: white;
+}
+
+.quarterscreen h2{
   color: white;
 }
