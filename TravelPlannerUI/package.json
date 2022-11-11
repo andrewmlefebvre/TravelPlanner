@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-native-web": "^0.18.9"
+    "react-native-web": "^0.18.9",
+    "semantic-ui-react": "^2.1.3"
   }
 }

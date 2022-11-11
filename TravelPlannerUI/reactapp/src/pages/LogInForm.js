@@ -32,7 +32,7 @@ function LogInForm(props){
                     </div>
                     <div>
                         <label htmlFor='password'>Password: </label>
-                        <input type='password' id='password' ref={passwordRef} secureTextEntry={true} ></input>
+                        <input type='password' id='password' ref={passwordRef} securetextentry="true" ></input>
                     </div>    
                     <div>
                         <button>Login</button>

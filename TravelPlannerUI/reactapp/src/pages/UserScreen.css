@@ -88,3 +88,11 @@ body{
 .quarterscreen h2{
   color: white;
 }
+
+
+.userTable {
+  color: white;
+  border-radius: 5px;
+  margin: auto;
+  width: 90%;
+}

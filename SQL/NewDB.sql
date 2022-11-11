@@ -118,4 +118,11 @@ DELIMITER ;
 
 CALL WIPE();
 
-INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '3899-06-03', '21 Test Ave Kingston RI 02882','User1', 'password');
+INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '3899-06-03', '21 Test Ave Kingston RI 02882','User2', 'apple');
+
+INSERT INTO TRIP VALUES (null, "Florida", '2022-12-01', '2022-12-05');
+INSERT INTO TRIP VALUES (null, "Iceland", '2022-12-01', '2022-12-05');
+
+
+INSERT INTO USERTRIP VALUES (null, 1, 1);
+INSERT INTO USERTRIP VALUES (null, 1, 2);
