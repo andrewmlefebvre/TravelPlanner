@@ -118,11 +118,19 @@ DELIMITER ;
 
 CALL WIPE();
 
-INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '3899-06-03', '21 Test Ave Kingston RI 02882','User2', 'apple');
+INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User2', 'apple');
+INSERT INTO USER VALUES (null, 'Test2', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User3', 'apple');
+INSERT INTO USER VALUES (null, 'Test3', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User4', 'apple');
 
 INSERT INTO TRIP VALUES (null, "Florida", '2022-12-01', '2022-12-05');
 INSERT INTO TRIP VALUES (null, "Iceland", '2022-12-01', '2022-12-05');
 
-
 INSERT INTO USERTRIP VALUES (null, 1, 1);
 INSERT INTO USERTRIP VALUES (null, 1, 2);
+
+INSERT INTO FRIENDS VALUES(null, 1, 2);
+INSERT INTO FRIENDS VALUES(null, 2, 1);
+INSERT INTO FRIENDS VALUES(null, 1, 3);
+
+
+

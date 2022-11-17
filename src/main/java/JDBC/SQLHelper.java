@@ -375,6 +375,18 @@ public class SQLHelper {
         return user;
     }
 
+    public void updateUser(User user){
+        String q = "UPDATE USER SET firstName = '"+user.getFirstName()+"', lastName = '"+user.getLastName()+"', userName = '"+user.getUserName()+"' WHERE USER.ID = "+user.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
 

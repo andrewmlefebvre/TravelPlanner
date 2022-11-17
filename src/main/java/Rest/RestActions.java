@@ -130,7 +130,7 @@ public class RestActions {
 
     @GetMapping("/api/get/friendsbyuser/{userID}")
     @ResponseStatus(HttpStatus.OK)
-    public static @ResponseBody List<User> getAllFriends(@PathVariable("userID") Integer userID){
+    public static @ResponseBody List<User> getFriendsByUser(@PathVariable("userID") Integer userID){
         SQLHelper sql = new SQLHelper();
         User user = sql.getUserWithID(userID);
         return sql.getFriendsOfUser(user);
@@ -172,5 +172,15 @@ public class RestActions {
 
     //-----------------------GET---------------------------------
     //-----------------------UPDATE---------------------------------
+    @PutMapping("/api/update/user/{id}/{userName}/{first}/{last}/{dob}")
+    @ResponseStatus(HttpStatus.OK)
+    public static void updateUser(@PathVariable("userName") String userName, @PathVariable("first") String first, @PathVariable("last") String last, @PathVariable("id") Integer id, @PathVariable("dob") String dob){
+        SQLHelper sql = new SQLHelper();
+        User user = sql.getUserWithID(id);
+        user.setUserName(userName);
+        user.setFirstName(first);
+        user.setLastName(last);
+        sql.updateUser(user);
+    }
     //-----------------------UPDATE---------------------------------
 }
