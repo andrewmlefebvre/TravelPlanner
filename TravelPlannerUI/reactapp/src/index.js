@@ -4,12 +4,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './index.css';
 
 import UserScreen from "./pages/UserScreen";
+import TripScreen from "./pages/TripScreen";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter basename="/">
     <Routes>
       <Route path="/" element={<UserScreen />} />
       <Route path="/UserScreen" element={<UserScreen />} />
+      <Route path="/TripScreen" element={<TripScreen />} />
     </Routes>
   </BrowserRouter>
 );

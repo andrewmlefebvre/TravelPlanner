@@ -18,6 +18,7 @@ function UserScreen(){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [myTrips, setMyTrips] = useState([])
     const [myFriends, setMyFriends] = useState([])
+    const [loadedUser, setLoadedUser] = useState(false);
 
     const userNameInputRef = useRef();
     const firstNameInputRef = useRef();
@@ -30,17 +31,26 @@ function UserScreen(){
         resolve => setTimeout(resolve, ms)
       );
 
+    function logOut(){
+        setIsLoggedIn(false);
+        setLoadedUser(false);
+        setMyTrips([]);
+        setMyFriends([]);
+        localStorage.setItem("userInformation", null);
+    }
+
     async function loginHandler(loginInfo){
         var response = await fetch("http://localhost:8080/api/get/login/".concat(loginInfo.userName).concat("/").concat(loginInfo.password), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
         var json = await response.json();
         if(response.ok && json[0] != null){
             const lUser = json;
+            setUser([]);
             setUser(user => [...user, json[0]]);
             await delay(100);
             
             setIsLoggedIn(true);
-            //localStorage.setItem("userInformation", JSON.stringify({"userName": loginInfo.userName, "password": loginInfo.password, "id": json.id}));
-            localStorage.setItem("test", "test");
+            localStorage.setItem("userInformation", JSON.stringify(lUser));
+            //localStorage.setItem("test", "testValue");
             tripListHandler(lUser);
             friendListHandler(lUser);
 
@@ -94,12 +104,15 @@ function UserScreen(){
 
         updateUserHandler(userNameInputRef.current.value, firstNameInputRef.current.value, lastNameInputRef.current.value, birthDayInputRef.current.value);
         alert("Information Updated");
-        alert(localStorage.getItem("test"));
+    }
+
+    const [checkedLogIn, setCheckedLogIn] = useState(false);
+    if(localStorage.getItem("userInformation") != null && !checkedLogIn){
+        setIsLoggedIn(true);
+        setCheckedLogIn(true);
     }
     
-
-    localStorage.clear();
-    if(!isLoggedIn){
+    if(!isLoggedIn && !loadedUser){
         return(
             <div>
                 <ToolBar />
@@ -107,6 +120,14 @@ function UserScreen(){
             </div>
         );
     }else{
+        if(!loadedUser){
+            setUser([]);
+            setUser(setUser(user => [...user, JSON.parse(localStorage.getItem("userInformation"))]));
+            setIsLoggedIn(true);
+            setLoadedUser(true);
+            tripListHandler(JSON.parse(localStorage.getItem("userInformation")));
+            friendListHandler(JSON.parse(localStorage.getItem("userInformation")));
+        }
         return(
             <div>
                 <ToolBar />
@@ -159,6 +180,7 @@ function UserScreen(){
                                 </div>    
                             </div>
                         </form>
+                        <button onClick={logOut}>LogOut</button>
                     </div>
                 </div>
                 <div className='split right'>

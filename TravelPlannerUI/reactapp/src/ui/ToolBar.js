@@ -15,7 +15,7 @@ function ToolBar(){
                     <Link to="/UserScreen">My Profile</Link>
                     </li>
                     <li>
-                    <Link to="/UserScreen">Trips</Link>
+                    <Link to="/TripScreen">Trip Creator</Link>
                     </li>
                     <li>
                     <Link to="/UserScreen">Planner</Link>

@@ -57,7 +57,7 @@ public class RestActions {
         }
     }
 
-    @GetMapping("/api/create/trip/{name}/{arrival}/{departal}/{userID}")
+    @PostMapping("/api/create/trip/{name}/{arrival}/{departal}/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
     public static @ResponseBody Trip createTrip(@PathVariable("name") String name,
                                                 @PathVariable("arrival") Date arrival,
