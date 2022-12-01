@@ -1,14 +1,10 @@
 
 
 body{
-  text-align: center;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
   background-image: url('../mainback.jpg');
   background-size: cover;
+  background-attachment: fixed;
+  font-family: sans-serif;
 }
 
 .split {
@@ -65,6 +61,7 @@ body{
   height: 90%;
   backdrop-filter: blur(20px);
   background-color: rgba(133, 125, 125, 0.2);
+  overflow-y: scroll;
 }
 
 .quarterscreen {
@@ -79,6 +76,7 @@ body{
   height: 40%;
   backdrop-filter: blur(20px);
   background-color: rgba(133, 125, 125, 0.2);
+  overflow-y: scroll;
 }
 
 .halfscreen h2{

@@ -9,7 +9,7 @@ import './ToolBar.css';
 //npm i nav-bar
 function ToolBar(){
         return (
-            <div className='tool'>
+            <div className='tb'>
                 <ul >
                     <li>
                     <Link to="/UserScreen">My Profile</Link>

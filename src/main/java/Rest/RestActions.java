@@ -59,7 +59,7 @@ public class RestActions {
 
     @PostMapping("/api/create/trip/{name}/{arrival}/{departal}/{userID}")
     @ResponseStatus(HttpStatus.CREATED)
-    public static @ResponseBody Trip createTrip(@PathVariable("name") String name,
+    public static @ResponseBody List<Trip> createTrip(@PathVariable("name") String name,
                                                 @PathVariable("arrival") Date arrival,
                                                 @PathVariable("departal") Date departal,
                                                 @PathVariable("userID") Integer userID){
@@ -69,7 +69,9 @@ public class RestActions {
             sql.addTrip(trip);
             User user = sql.getUserWithID(userID);
             sql.addTripToUser(trip, user);
-            return trip;
+            List<Trip> out = new LinkedList<>();
+            out.add(trip);
+            return out;
         }catch(Exception e){
             throw e;
         }
@@ -77,27 +79,29 @@ public class RestActions {
 
     @GetMapping("/api/create/event/{subtype}/{name}/{street}/{city}/{state}/{postal}/{country}/{tripID}")
     @ResponseStatus(HttpStatus.CREATED)
-    public static @ResponseBody Event createEvent(@PathVariable("subtype") String subtype,
+    public static @ResponseBody List<Event> createEventAndReturnAll(@PathVariable("subtype") String subtype,
                                                   @PathVariable("name") String name,
                                                   @PathVariable("street") String street,
                                                   @PathVariable("city") String city,
                                                   @PathVariable("state") String state,
                                                   @PathVariable("postal") String postal,
-                                                  @PathVariable("country") String coountry,
+                                                  @PathVariable("country") String country,
                                                   @PathVariable("tripID") Integer tripID){
         try {
             SQLHelper sql = new SQLHelper();
             Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findFirst().get();
             Event event = null;
             if(subtype.equalsIgnoreCase("activity")) {
-                event = new Activity(null, name, new Location(street, city, state, postal, coountry), trip);
+                event = new Activity(null, name, new Location(street, city, state, postal, country), trip);
             }else if(subtype.equalsIgnoreCase("transportation")){
-                event = new Transportation(null, name, new Location(street, city, state, postal, coountry), trip);
+                event = new Transportation(null, name, new Location(street, city, state, postal, country), trip);
             }
 
             if(event != null){
                 sql.addEvent(event);
-                return event;
+                List<Event> out = new LinkedList<>();
+                out = sql.getEventsFromTrip(sql.getTripWithID(tripID).get(0));
+                return out;
             }
             return null;
         }catch(Exception e){

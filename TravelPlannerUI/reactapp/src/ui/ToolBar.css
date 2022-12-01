@@ -1,4 +1,4 @@
-ul {
+.tb ul {
     height: 56px;
     width: 100%;
     position: fixed;
@@ -17,18 +17,18 @@ ul {
     color:white;
 }
 
-li{
+.tb li{
     padding: 14px 16px;
     color:white;
     text-decoration: none;
     border-right: 1px solid #bbb;
 }
 
-li:last-child {
+.tb li:last-child {
     border-right: none;
   }
 
-a, a:link, a:visited {
+.tb a, a:link, a:visited {
     color: #FFFAFA;
     text-decoration: none;
   }

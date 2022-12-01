@@ -18,8 +18,8 @@ function TripStartForm(props){
             name: enteredTripName,
             start: enteredStartDate,
             end: enteredEndDate
-
         }
+        
         props.onStart(TripInfo);
     }
     return(
@@ -27,7 +27,7 @@ function TripStartForm(props){
             <form onSubmit={submitHandler}>
                 <div>
                     <div>
-                        <h1>Trip Information</h1>
+                        <h1>New Trip</h1>
                     </div>
                     <div>
                         <label htmlFor='tripName'>Trip Name: </label>

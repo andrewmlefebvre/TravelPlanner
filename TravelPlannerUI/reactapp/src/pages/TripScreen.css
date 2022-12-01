@@ -1,0 +1,14 @@
+.tripclass{
+    position: absolute;
+    vertical-align:top;
+    padding: 20px;
+    width: 20%;
+    color:white;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+}
+
+.tripclass html{
+    overflow-y:auto;
+}

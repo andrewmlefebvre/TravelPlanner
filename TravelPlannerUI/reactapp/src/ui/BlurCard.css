@@ -2,7 +2,7 @@
   box-sizing: border-box;
 }
 
-body {
+.card body {
   font-family: sans-serif;
   margin: 3rem;
   background-color: #dfdfdf;
@@ -42,7 +42,6 @@ h1, h2 {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   width: 20rem;
-  height: 15rem;
   backdrop-filter: blur(20px);
   background-color: rgba(0, 0, 0, 0.2);
 }

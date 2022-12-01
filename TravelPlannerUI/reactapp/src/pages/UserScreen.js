@@ -129,7 +129,7 @@ function UserScreen(){
             friendListHandler(JSON.parse(localStorage.getItem("userInformation")));
         }
         return(
-            <div>
+            <div className={"uBase"}>
                 <ToolBar />
                 <div className='split topleft'>
                     <div className='quarterscreen'>

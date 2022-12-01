@@ -90,6 +90,22 @@ public class SQLHelper {
         }
         return out;
     }
+    public List<Trip> getTripWithID(Integer ID){
+        List<Trip> out = new LinkedList<>();
+        String q = "SELECT TRIP.* FROM TRIP WHERE TRIP.ID = "+ID+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            while(rs.next() && rs.getInt(1) != 0){
+                out.add(new Trip(rs.getInt(1), rs.getString(2),rs.getDate(3), rs.getDate(4)));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return out;
+    }
     public void addUser(User user){
         if(user.getID() != null) return;
         String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+getDobString(user.getDob())+"', '"+user.getAddress()+"','"+user.getUserName()+"','"+user.getPassword()+"');";
