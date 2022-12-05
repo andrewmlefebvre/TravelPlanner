@@ -201,7 +201,7 @@ function UserScreen(){
                                         <Table.Cell>{el.name}</Table.Cell>
                                         <Table.Cell>{el.startDate}</Table.Cell>
                                         <Table.Cell>{el.endDate}</Table.Cell>
-                                        <Table.Cell><button onClick={event =>  window.location.href='/TripScreen'}>Open</button></Table.Cell>
+                                        <Table.Cell><button onClick={event =>  {window.location.href='/TripScreen'; localStorage.setItem("trip", JSON.stringify(el));}}>Open</button></Table.Cell>
                                     </Table.Row>
                                     );
                                 })}

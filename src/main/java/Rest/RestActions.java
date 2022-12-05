@@ -1,5 +1,7 @@
 package Rest;
 
+import API.GeoAPI;
+import API.LocationCoords;
 import Entity.*;
 import JDBC.SQLHelper;
 import lombok.AllArgsConstructor;
@@ -103,6 +105,8 @@ public class RestActions {
                 sql.addEvent(event);
                 List<Event> out = new LinkedList<>();
                 out = sql.getEventsFromTrip(sql.getTripWithID(tripID).get(0));
+                LocationCoords c = GeoAPI.fowardGeoCode(event.getLocation().getStreet(), event.getLocation().getCity(), event.getLocation().getState(), event.getLocation().getPostal(), event.getLocation().getCountry());
+                //TODO weather api sql store
                 return out;
             }
             return null;
