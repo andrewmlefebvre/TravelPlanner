@@ -19,7 +19,7 @@ function TripScreen(){
     const [thisTrip, setThisTrip] = useState([]);
 
     async function tripStartHandler(TripInfo){
-        //alert("http://localhost:8080/api/create/trip/".concat(TripInfo.name).concat("/").concat(TripInfo.start).concat("/").concat(TripInfo.end).concat("/").concat(JSON.parse(localStorage.getItem("userInformation"))[0].id));
+        alert("http://localhost:8080/api/create/trip/".concat(TripInfo.name).concat("/").concat(TripInfo.start).concat("/").concat(TripInfo.end).concat("/").concat(JSON.parse(localStorage.getItem("userInformation"))[0].id));
         var response = await fetch("http://localhost:8080/api/create/trip/".concat(TripInfo.name).concat("/").concat(TripInfo.start).concat("/").concat(TripInfo.end).concat("/").concat(JSON.parse(localStorage.getItem("userInformation"))[0].id), {method:'POST'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
         var json = await response.json();
         if(response.ok && json != null){
@@ -62,7 +62,8 @@ function TripScreen(){
                             return (
                                     <dl key={el.id}>
                                         <BlurCard>
-                                            {el.location.street}
+                                            <h3>{el.subtype}: {el.name}</h3>
+                                            <p>{el.location.street} {el.location.city} {el.location.state} {el.location.postal} {el.location.country}</p>
                                         </BlurCard>
                                         <img src={downArrow} alt="Logo" width='50' height='50'/>
                                     </dl>

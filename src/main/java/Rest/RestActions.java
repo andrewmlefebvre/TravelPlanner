@@ -95,6 +95,8 @@ public class RestActions {
                 event = new Activity(null, name, new Location(street, city, state, postal, country), trip);
             }else if(subtype.equalsIgnoreCase("transportation")){
                 event = new Transportation(null, name, new Location(street, city, state, postal, country), trip);
+            }else if(subtype.equalsIgnoreCase("dwelling")){
+                event = new Dwelling(null, name, new Location(street, city, state, postal, country), trip);
             }
 
             if(event != null){

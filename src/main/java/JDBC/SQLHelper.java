@@ -188,7 +188,7 @@ public class SQLHelper {
 
     public void addTrip(Trip trip){
         if(trip.getID() != null) return;
-        String q = "INSERT INTO TRIP VALUES (null,'"+trip.getName()+"','"+getDobString(trip.getStartDate())+"','"+getDobString(trip.getEndDate())+"');";
+        String q = "INSERT INTO TRIP VALUES (null,'"+trip.getName()+"','"+String.valueOf(trip.getStartDate())+"','"+String.valueOf(trip.getEndDate())+"');";
         log(q);
         Integer ID = null;
         try{
@@ -262,7 +262,9 @@ public class SQLHelper {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
                     out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
-                } else{
+                }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
+                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                }else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }
             }
@@ -304,7 +306,9 @@ public class SQLHelper {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
                     out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
-                } else{
+                }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
+                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                }else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }
             }
