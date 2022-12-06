@@ -12,3 +12,13 @@
 .tripclass html{
     overflow-y:auto;
 }
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color:white;
+    font-family: sans-serif;
+  }

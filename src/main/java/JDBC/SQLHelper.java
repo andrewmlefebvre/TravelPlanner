@@ -106,6 +106,21 @@ public class SQLHelper {
         }
         return out;
     }
+
+    public APIInformation getAPIFromEvent(Event e){
+        String q = "SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = "+e.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            rs.next();
+            return new APIInformation(rs.getInt(1), rs.getInt(2), rs.getFloat(3), rs.getFloat(4), rs.getFloat(5), rs.getString(6), rs.getFloat(7), rs.getFloat(8), rs.getFloat(9));
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
     public void addUser(User user){
         if(user.getID() != null) return;
         String q = "INSERT INTO USER VALUES (null, '"+user.getFirstName()+"', '"+user.getLastName()+"', '"+getDobString(user.getDob())+"', '"+user.getAddress()+"','"+user.getUserName()+"','"+user.getPassword()+"');";
@@ -233,7 +248,7 @@ public class SQLHelper {
     }
 
     public void addEvent(Event event){
-        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+");";
+        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+",'"+event.getStartDate()+"','"+event.getEndDate()+"');";
         log(q);
         Integer ID = null;
         try{
@@ -259,11 +274,11 @@ public class SQLHelper {
             ResultSet rs = p.executeQuery();
             while(rs.next()){
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
-                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
-                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }
@@ -271,6 +286,7 @@ public class SQLHelper {
         }catch(Exception e){
             e.printStackTrace();
         }
+        out.sort((e1, e2) -> e1.getStartDate().compareTo(e2.getStartDate()));
         return out;
     }
 
@@ -303,11 +319,11 @@ public class SQLHelper {
                 int tripID = rs.getInt("tripID");
                 Trip trip = getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().get();
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
-                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
-                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip));
+                    out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else{
                     throw new Exception("UNDEFINED EVENT TYPE");
                 }

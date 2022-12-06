@@ -17,6 +17,11 @@ public class GeoAPI {
         String _city = city.replaceAll(" ", "%20");
         String _postal = postal.replaceAll(" ", "%20");
         String _country = country.replaceAll(" ", "%20");
+        try{
+            Thread.sleep(400);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://forward-reverse-geocoding.p.rapidapi.com/v1/forward?street="+_street+"&city="+_city+"&state="+_state+"&postalcode="+_postal+"&country="+_country+"&accept-language=en&polygon_threshold=0.0"))

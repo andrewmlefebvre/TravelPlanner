@@ -10,6 +10,8 @@ function NewEventForm(props){
     const stateRef = useRef();
     const postalRef = useRef();
     const countryRef = useRef();
+    const startDateRef = useRef();
+    const endDateRef = useRef();
 
 
     function submitHandler(event){
@@ -22,6 +24,8 @@ function NewEventForm(props){
         const enteredStateRef = stateRef.current.value;
         const enteredPostalRef = postalRef.current.value;
         const enteredCountryRef= countryRef.current.value;
+        const enteredStartDateRef = startDateRef.current.value;
+        const enteredEndDateRef= endDateRef.current.value;
 
         const EventInfo = {
             subtype: enteredSubtypeRef,
@@ -30,7 +34,9 @@ function NewEventForm(props){
             city: enteredCityRef,
             state: enteredStateRef,
             postal: enteredPostalRef,
-            country: enteredCountryRef
+            country: enteredCountryRef,
+            startDate: enteredStartDateRef,
+            endDate: enteredEndDateRef
         }
 
         props.onAdd(EventInfo); 
@@ -71,6 +77,14 @@ function NewEventForm(props){
                     <div>
                         <label htmlFor='country'>Country: </label>
                         <input type='text' id='country' ref={countryRef}></input>
+                    </div> 
+                    <div>
+                        <label htmlFor='startDate'>Start Date: </label>
+                        <input type='text' id='startDate' ref={startDateRef}></input>
+                    </div> 
+                    <div>
+                        <label htmlFor='endDate'>End Date: </label>
+                        <input type='text' id='endDate' ref={endDateRef}></input>
                     </div> 
                     <div>
                         <button>Add</button>

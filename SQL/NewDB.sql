@@ -80,6 +80,8 @@ CREATE TABLE IF NOT EXISTS EVENT(
     postal varchar(255) NOT NULL,
 	country varchar(255) NOT NULL,
     tripID int NOT NULL,
+    startDate date NOT NULL,
+    endDate date NOT NULL,
 
 	PRIMARY KEY (ID),
 	FOREIGN KEY (subtype) REFERENCES EVENT_SUBTYPES(subtype),

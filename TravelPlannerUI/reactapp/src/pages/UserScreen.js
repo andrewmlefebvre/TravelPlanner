@@ -114,9 +114,12 @@ function UserScreen(){
     
     if(!isLoggedIn && !loadedUser){
         return(
-            <div>
+            <div  >
                 <ToolBar />
-                <LogInForm onLogin={loginHandler}/>
+                <div className='centered'>                
+                    <LogInForm onLogin={loginHandler}/>
+                    <button type='button'>New User</button>
+                </div>
             </div>
         );
     }else{

@@ -18,6 +18,8 @@ public class WorkFlowTest {
 
     public static final Location location = new Location("45 Upper College RD", "Kingston", "RI", "02881", "USA");
 
+    public Date defaultDate = new Date(2000, 01, 01);
+
 
     @Before
     public void before(){
@@ -48,9 +50,9 @@ public class WorkFlowTest {
         sql.addTripToUser(trip, friend1);
 
         //Add events to trip
-        Event event1 = new Activity(null, "Event1", location, trip);
-        Event event2 = new Transportation(null, "Event2", location, trip);
-        Event event3 = new Activity(null, "Event3", location, trip);
+        Event event1 = new Activity(null, "Event1", location, trip, defaultDate, defaultDate);
+        Event event2 = new Transportation(null, "Event2", location, trip, defaultDate, defaultDate);
+        Event event3 = new Activity(null, "Event3", location, trip, defaultDate, defaultDate);
         sql.addEvent(event1);
         sql.addEvent(event2);
         sql.addEvent(event3);

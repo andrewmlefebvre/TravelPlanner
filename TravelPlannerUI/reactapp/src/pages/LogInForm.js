@@ -1,5 +1,5 @@
 import BlurCard from "../ui/BlurCard";
-
+import './UserScreen.css';
 import { useRef } from 'react';
 
 function LogInForm(props){
@@ -21,24 +21,26 @@ function LogInForm(props){
     }
     return(
         <BlurCard>
-            <form onSubmit={submitHandler}>
-                <div>
+            <div>
+                <form onSubmit={submitHandler}>
                     <div>
-                        <h1>LogIn</h1>
+                        <div>
+                            <h1>LogIn</h1>
+                        </div>
+                        <div>
+                            <label htmlFor='userName'>UserName: </label>
+                            <input type='text' id='userName' ref={userNameInputRef}></input>
+                        </div>
+                        <div>
+                            <label htmlFor='password'>Password: </label>
+                            <input type='password' id='password' ref={passwordRef} securetextentry="true" ></input>
+                        </div>    
+                        <div className='nooverlay'>
+                            <button type='submit' id='submit'>Login</button>
+                        </div>    
                     </div>
-                    <div>
-                        <label htmlFor='userName'>UserName: </label>
-                        <input type='text' id='userName' ref={userNameInputRef}></input>
-                    </div>
-                    <div>
-                        <label htmlFor='password'>Password: </label>
-                        <input type='password' id='password' ref={passwordRef} securetextentry="true" ></input>
-                    </div>    
-                    <div>
-                        <button>Login</button>
-                    </div>    
-                </div>
-            </form>
+                </form>
+            </div>
         </BlurCard>
     );
 }

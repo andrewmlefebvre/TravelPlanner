@@ -14,6 +14,8 @@ public class Presentation2Test {
 
     public static final Location location = new Location("45 Upper College RD", "Kingston", "RI", "02881", "USA");
 
+    public Date defaultDate = new Date(2000, 01, 01);
+
 
     @Before
     public void before(){
@@ -53,11 +55,11 @@ public class Presentation2Test {
         sql.getTripsFromUser(users.get(1));
         System.out.println();
 
-        sql.addEvent(new Activity(null, "Event1", location, trips.get(0)));
-        sql.addEvent(new Transportation(null, "Transportation1", location, trips.get(0)));
-        sql.addEvent(new Activity(null, "Event2", location, trips.get(0)));
-        sql.addEvent(new Transportation(null, "Transportation2", location, trips.get(0)));
-        sql.addEvent(new Activity(null, "Event3", location, trips.get(0)));
+        sql.addEvent(new Activity(null, "Event1", location, trips.get(0), defaultDate, defaultDate));
+        sql.addEvent(new Transportation(null, "Transportation1", location, trips.get(0), defaultDate, defaultDate));
+        sql.addEvent(new Activity(null, "Event2", location, trips.get(0), defaultDate, defaultDate));
+        sql.addEvent(new Transportation(null, "Transportation2", location, trips.get(0), defaultDate, defaultDate));
+        sql.addEvent(new Activity(null, "Event3", location, trips.get(0), defaultDate, defaultDate));
 
         System.out.println();
         List<Event> events = sql.getAllEvents();

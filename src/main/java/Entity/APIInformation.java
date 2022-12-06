@@ -22,4 +22,15 @@ public class APIInformation {
     public APIInformation(Event event){
         this.event = event;
     }
+    public APIInformation(Integer ID, Integer eventID, float lat, float lon, float temp, String des, float feelsLike, float UV, float wind){
+        this.ID = ID;
+        this.event = null;
+        this.lat = lat;
+        this.lon = lon;
+        this.temp = temp;
+        this.des = des;
+        this.feelsLike = feelsLike;
+        this.UV = UV;
+        this.wind = wind;
+    }
 }

@@ -5,6 +5,11 @@ body{
   background-size: cover;
   background-attachment: fixed;
   font-family: sans-serif;
+
+}
+
+.nooverlay {
+  display:flex;
 }
 
 .split {
@@ -45,6 +50,12 @@ body{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.centeredW {
+  position: relative;
+  left: 40%;
   text-align: center;
 }
 
