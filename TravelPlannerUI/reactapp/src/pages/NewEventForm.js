@@ -12,6 +12,7 @@ function NewEventForm(props){
     const countryRef = useRef();
     const startDateRef = useRef();
     const endDateRef = useRef();
+    const flightRef = useRef();
 
 
     function submitHandler(event){
@@ -26,6 +27,7 @@ function NewEventForm(props){
         const enteredCountryRef= countryRef.current.value;
         const enteredStartDateRef = startDateRef.current.value;
         const enteredEndDateRef= endDateRef.current.value;
+        const enteredFlightRef = flightRef.current.value;
 
         const EventInfo = {
             subtype: enteredSubtypeRef,
@@ -36,7 +38,8 @@ function NewEventForm(props){
             postal: enteredPostalRef,
             country: enteredCountryRef,
             startDate: enteredStartDateRef,
-            endDate: enteredEndDateRef
+            endDate: enteredEndDateRef,
+            flight: enteredFlightRef
         }
 
         props.onAdd(EventInfo); 
@@ -85,6 +88,10 @@ function NewEventForm(props){
                     <div>
                         <label htmlFor='endDate'>End Date: </label>
                         <input type='text' id='endDate' ref={endDateRef}></input>
+                    </div> 
+                    <div>
+                        <label htmlFor='flight'>Flight Number: </label>
+                        <input type='text' id='flight' ref={flightRef}></input>
                     </div> 
                     <div>
                         <button  className='button-4'>Add</button>

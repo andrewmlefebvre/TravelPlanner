@@ -38,8 +38,16 @@ function TripScreen(){
     }
 
     async function addEventHandler(eventInfo){
-        //alert("http://localhost:8080/api/create/event/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id));
-        var response = await fetch("http://localhost:8080/api/create/event/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+
+        if(eventInfo.flight === ""){
+            //alert("http://localhost:8080/api/create/event2/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate));
+            var response = await fetch("http://localhost:8080/api/create/event2/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+
+        }else{
+            //alert("http://localhost:8080/api/create/event/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate).concat("/").concat(eventInfo.flight));
+            var response = await fetch("http://localhost:8080/api/create/event/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate).concat("/").concat(eventInfo.flight), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        }
+        //alert("http://localhost:8080/api/create/event/".concat(eventInfo.subtype).concat("/").concat(eventInfo.name).concat("/").concat(eventInfo.street).concat("/").concat(eventInfo.city).concat("/").concat(eventInfo.state).concat("/").concat(eventInfo.postal).concat("/").concat(eventInfo.country).concat("/").concat(thisTrip[0].id).concat("/").concat(eventInfo.startDate).concat("/").concat(eventInfo.endDate).concat(flightAdd));
         var json = await response.json();
         if(response.ok && json != null){
             //alert(JSON.stringify(json));
@@ -59,6 +67,16 @@ function TripScreen(){
             setTripEvents(json);
         }else{
             alert("Trip Failed to Load");
+        }
+    }
+
+    async function getFlightStatus(flightNum){
+        var response = await fetch("http://localhost:8080/api/get/flight/".concat(flightNum), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        var tRes = await response.text();
+        if(response.ok){
+            alert(tRes);
+        }else{
+            alert("Status not available");
         }
     }
 
@@ -118,17 +136,30 @@ function TripScreen(){
                                     <dl key={el.id}>
                                         <BlurCard>
                                             <h3>{el.subtype}: {el.name} &nbsp; &nbsp; &nbsp;<IconRenderSwitch des={el.api.des}/> {el.api.temp}F</h3>
+                                            <button onClick={event => {getFlightStatus(el.flight)}}>{el.flight}</button>
                                             <p>{el.api.des}</p>
                                             <p>Date: {el.startDate} - {el.endDate}</p>
                                             <p>{el.location.street} {el.location.city} {el.location.state} {el.location.postal} {el.location.country}</p>
+                                            <div>
                                             <Popup trigger={<button className='button-4'>Nearby</button>}>
                                                 <BlurCard>
-                                                    <button className='button-4' onClick={event => {handleNearby(el.id)}}>Retrieve</button>
                                                     <div>
-                                                        <p>temp</p>
+                                                        <button className='button-4' onClick={event => {handleNearby(el.id)}}>Retrieve</button>
+                                                    </div>
+                                                    <div>
+                                                        {nearby?.map(el => {
+                                                            return (
+                                                                <div className='white'>
+                                                                    <h2>{el.name}</h2>
+                                                                    <p>{el.address}</p>
+                                                                    <p>{el.des}</p>
+                                                                </div>
+                                                            );
+                                                        })}
                                                     </div>
                                                 </BlurCard>
                                             </Popup>
+                                            </div>
                                         </BlurCard>
                                         <img src={downArrow} alt="Logo" width='50' height='50'/>
                                     </dl>

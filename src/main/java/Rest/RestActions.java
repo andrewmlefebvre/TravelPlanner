@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -117,7 +118,24 @@ public class RestActions {
         }
     }
 
-    @GetMapping("/api/create/event/{subtype}/{name}/{street}/{city}/{state}/{postal}/{country}/{tripID}/{startDate}/{endDate}")
+    @GetMapping("/api/create/event2/{subtype}/{name}/{street}/{city}/{state}/{postal}/{country}/{tripID}/{startDate}/{endDate}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public static @ResponseBody List<DisplayableEvent> createEventAndReturnAllNoFlight(@PathVariable("subtype") String subtype,
+                                                                               @PathVariable("name") String name,
+                                                                               @PathVariable("street") String street,
+                                                                               @PathVariable("city") String city,
+                                                                               @PathVariable("state") String state,
+                                                                               @PathVariable("postal") String postal,
+                                                                               @PathVariable("country") String country,
+                                                                               @PathVariable("tripID") Integer tripID,
+                                                                               @PathVariable("startDate") Date startDate,
+                                                                               @PathVariable("endDate") Date endDate){
+
+        return createEventAndReturnAll(subtype, name, street, city, state, postal, country, tripID, startDate, endDate, "");
+
+    }
+
+    @GetMapping("/api/create/event/{subtype}/{name}/{street}/{city}/{state}/{postal}/{country}/{tripID}/{startDate}/{endDate}/{flight}")
     @ResponseStatus(HttpStatus.CREATED)
     public static @ResponseBody List<DisplayableEvent> createEventAndReturnAll(@PathVariable("subtype") String subtype,
                                                   @PathVariable("name") String name,
@@ -128,7 +146,8 @@ public class RestActions {
                                                   @PathVariable("country") String country,
                                                   @PathVariable("tripID") Integer tripID,
                                                   @PathVariable("startDate") Date startDate,
-                                                  @PathVariable("endDate") Date endDate){
+                                                  @PathVariable("endDate") Date endDate,
+                                                  @PathVariable("flight") String flight){
         try {
             SQLHelper sql = new SQLHelper();
             Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findFirst().get();
@@ -136,23 +155,21 @@ public class RestActions {
             if(subtype.equalsIgnoreCase("activity")) {
                 event = new Activity(null, name,  new Location(street, city, state, postal, country), trip, startDate, endDate);
             }else if(subtype.equalsIgnoreCase("transportation")){
-                event = new Transportation(null, name, new Location(street, city, state, postal, country), trip, startDate, endDate);
+                event = new Transportation(null, name, new Location(street, city, state, postal, country), trip, startDate, endDate, flight);
             }else if(subtype.equalsIgnoreCase("dwelling")){
                 event = new Dwelling(null, name, new Location(street, city, state, postal, country), trip, startDate, endDate);
             }
 
             if(event != null){
                 sql.addEvent(event);
+                if (flight != null && flight != "") {
+                    sql.addFlightNumber(flight, event);
+                }
                 List<Event> out = sql.getEventsFromTrip(sql.getTripWithID(tripID).get(0));
                     out.stream().forEach(e -> {
                         sql.addWeatherInformation(e);
-                        try {
-                        Thread.sleep(333);
-                        }catch(InterruptedException e2){
-                            e2.printStackTrace();
-                        }
                     });
-                return out.stream().map(e -> new DisplayableEvent(e.getID(), e.getSubtype(), e.getName(), e.getLocation(), e.getTrip(), e.getStartDate(), e.getEndDate(), sql.getAPIFromEvent(e))).toList();
+                return out.stream().map(e -> new DisplayableEvent(e.getID(), e.getSubtype(), e.getName(), e.getLocation(), e.getTrip(), e.getStartDate(), e.getEndDate(), sql.getAPIFromEvent(e), e.getFlightNumber())).toList();
             }
             return null;
         }catch(Exception e){
@@ -217,7 +234,7 @@ public class RestActions {
     public static @ResponseBody List<DisplayableEvent> getEventsFromTrip(@PathVariable("tripID") Integer tripID){
         SQLHelper sql = new SQLHelper();
         Trip trip = sql.getAllTrips().stream().filter(t -> t.getID() == tripID).findAny().orElse(null);
-        return sql.getEventsFromTrip(trip).stream().map(e -> new DisplayableEvent(e.getID(), e.getSubtype(), e.getName(), e.getLocation(), e.getTrip(), e.getStartDate(), e.getEndDate(), sql.getAPIFromEvent(e))).toList();
+        return sql.getEventsFromTrip(trip).stream().map(e -> new DisplayableEvent(e.getID(), e.getSubtype(), e.getName(), e.getLocation(), e.getTrip(), e.getStartDate(), e.getEndDate(), sql.getAPIFromEvent(e), e.getFlightNumber())).toList();
     }
 
     @GetMapping("/api/get/login/{userName}/{password}")
@@ -243,6 +260,12 @@ public class RestActions {
         }
 
         return sql.getNearby(event);
+    }
+
+    @GetMapping("/api/get/flight/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody String getFlightStatus(@PathVariable("name") String name){
+        return FlightAPI.getFlightInfo(name);
     }
 
     //-----------------------GET---------------------------------

@@ -19,4 +19,5 @@ public class DisplayableEvent {
     Date startDate;
     Date endDate;
     APIInformation api;
+    String flight;
 }

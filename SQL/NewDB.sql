@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS EVENT(
     tripID int NOT NULL,
     startDate date NOT NULL,
     endDate date NOT NULL,
+    flightNumber varchar(10),
 
 	PRIMARY KEY (ID),
 	FOREIGN KEY (subtype) REFERENCES EVENT_SUBTYPES(subtype),
@@ -118,13 +119,26 @@ CREATE TABLE IF NOT EXISTS APIINFORMATION(
 	FOREIGN KEY (eventID) REFERENCES EVENT(ID) ON DELETE CASCADE
 );
 
+CREATE INDEX user_index
+ON USER (userName);
+
+CREATE INDEX trip_index
+ON TRIP (name);
+
+CREATE INDEX usertrip_index
+ON USERTRIP (userID);
+
+CREATE INDEX aip_index
+ON APIINFORMATION (eventID);
+
+CREATE INDEX nearby_index
+ON NEARBY (eventID);
+
 END $$
 
 DELIMITER ;
 
 CALL WIPE();
-
-SELECT * FROM NEARBY;
 
 
 

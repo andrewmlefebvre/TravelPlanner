@@ -46,9 +46,9 @@ body{
 
 /* If you want the content centered horizontally and vertically */
 .centered {
-  position: absolute;
   top: 50%;
   left: 50%;
+  position: absolute;
   transform: translate(-50%, -50%);
   text-align: center;
 }
@@ -132,6 +132,9 @@ body{
   vertical-align: middle;
   white-space: nowrap;
   word-wrap: break-word;
+  flex-wrap: nowrap;
+  text-align:center;
+  left:0;
 }
 
 .button-4:hover {

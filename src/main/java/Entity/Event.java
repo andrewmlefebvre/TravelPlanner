@@ -16,6 +16,7 @@ public abstract class Event {
     Trip trip;
     Date startDate;
     Date endDate;
+    String flightNumber;
 
     public Event(Integer ID, String name, Location location, Trip trip, Date startDate, Date endDate){
         this.ID = ID;

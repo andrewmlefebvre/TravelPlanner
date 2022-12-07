@@ -43,7 +43,7 @@ h1, h2 {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   padding: 2rem;
   width: 30rem;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(40px);
   background-color: rgba(0, 0, 0, 0.2);
 }
 

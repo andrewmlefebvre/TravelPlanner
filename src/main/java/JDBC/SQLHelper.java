@@ -249,7 +249,7 @@ public class SQLHelper {
     }
 
     public void addEvent(Event event){
-        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+",'"+event.getStartDate()+"','"+event.getEndDate()+"');";
+        String q = "INSERT INTO EVENT VALUES (null,'"+event.getSubtype()+"','"+event.getName()+"','"+event.getLocation().getStreet()+"','"+event.getLocation().getCity()+"','"+event.getLocation().getState()+"','"+event.getLocation().getPostal()+"','"+event.getLocation().getCountry()+"',"+event.getTrip().getID()+",'"+event.getStartDate()+"','"+event.getEndDate()+"','"+event.getFlightNumber()+"');";
         log(q);
         Integer ID = null;
         try{
@@ -277,7 +277,7 @@ public class SQLHelper {
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate"), rs.getString("flightNumber")));
                 }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
                     out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else{
@@ -322,7 +322,7 @@ public class SQLHelper {
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
                     out.add(new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
+                    out.add(new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate"), rs.getString("flightNumber")));
                 }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
                     out.add(new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), trip, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else{
@@ -481,7 +481,7 @@ public class SQLHelper {
                 if(rs.getString(2).equalsIgnoreCase("Activity")) {
                     event = (new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
-                    event = (new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
+                    event = (new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate"), rs.getString("flightNumber")));
                 }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
                     event = (new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
                 }else{
@@ -492,6 +492,18 @@ public class SQLHelper {
             e.printStackTrace();
         }
         return event;
+    }
+
+    public void addFlightNumber(String number, Event event){
+        String q = "UPDATE EVENT SET flightNumber = '"+number+"' WHERE ID ="+event.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 
