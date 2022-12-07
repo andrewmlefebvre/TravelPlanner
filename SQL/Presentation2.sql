@@ -53,15 +53,15 @@ INSERT INTO USERTRIP VALUES (null,2,1);
 
 SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
 
-INSERT INTO EVENT VALUES (null,'Activity','Event1','45 Upper College RD','Kingston','RI','02881','USA',1);
+INSERT INTO EVENT VALUES (null,'Activity','Event1','45 Upper College RD','Kingston','RI','02881','USA',1,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 1, null, null, null, null, null, null, null);
-INSERT INTO EVENT VALUES (null,'Transportation','Transportation1','45 Upper College RD','Kingston','RI','02881','USA',1);
+INSERT INTO EVENT VALUES (null,'Transportation','Transportation1','45 Upper College RD','Kingston','RI','02881','USA',1,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 2, null, null, null, null, null, null, null);
-INSERT INTO EVENT VALUES (null,'Activity','Event2','45 Upper College RD','Kingston','RI','02881','USA',1);
+INSERT INTO EVENT VALUES (null,'Activity','Event2','45 Upper College RD','Kingston','RI','02881','USA',1,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 3, null, null, null, null, null, null, null);
-INSERT INTO EVENT VALUES (null,'Transportation','Transportation2','45 Upper College RD','Kingston','RI','02881','USA',1);
+INSERT INTO EVENT VALUES (null,'Transportation','Transportation2','45 Upper College RD','Kingston','RI','02881','USA',1,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 4, null, null, null, null, null, null, null);
-INSERT INTO EVENT VALUES (null,'Dwelling','Event3','45 Upper College RD','Kingston','RI','02881','USA',1);
+INSERT INTO EVENT VALUES (null,'Dwelling','Event3','45 Upper College RD','Kingston','RI','02881','USA',1,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 5, null, null, null, null, null, null, null);
 
 SELECT * FROM Event;
@@ -77,9 +77,9 @@ SELECT * FROM APIInformation WHERE APIInformation.eventID = 1;
 -- Number of each type of event for a trip
 SELECT EVENT.subtype, COUNT(EVENT.subtype) FROM EVENT JOIN TRIP on EVENT.tripID = TRIP.ID GROUP BY EVENT.subtype;
 
-INSERT INTO EVENT VALUES (null,'Transportation','Transportation2','45 Upper College RD','Kingston','RI','02881','USA',2);
+INSERT INTO EVENT VALUES (null,'Transportation','Transportation2','45 Upper College RD','Kingston','RI','02881','USA',2,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 4, null, null, null, null, null, null, null);
-INSERT INTO EVENT VALUES (null,'Dwelling','Event3','45 Upper College RD','Kingston','RI','02881','USA',2);
+INSERT INTO EVENT VALUES (null,'Dwelling','Event3','45 Upper College RD','Kingston','RI','02881','USA',2,'2022-05-05', '2022-05-05', null);
 INSERT INTO APIINFORMATION VALUES (null, 5, null, null, null, null, null, null, null);
 
 -- Type of event by user

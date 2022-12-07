@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class FlightAPI {
     public static String getFlightInfo(String name){
         try {
-            
+
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://flightera-flight-data.p.rapidapi.com/flight/info?flnr="+name+""))
                     .header("X-RapidAPI-Key", "992c85d2d8msh138057fb42bf0b1p176bffjsne0e123c03bfb")

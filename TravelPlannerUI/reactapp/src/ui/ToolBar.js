@@ -17,11 +17,6 @@ function ToolBar(){
                     <li>
                     <Link to="/TripScreen">Trip Creator</Link>
                     </li>
-                    <div className='topnav-right'>
-                        <li>
-                            <Link to="/Admin">Admin</Link>
-                        </li>
-                    </div>
                 </ul>
             </div>
           )
