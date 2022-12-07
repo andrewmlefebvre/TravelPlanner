@@ -8,6 +8,8 @@ import LogInForm from "./LogInForm";
 import { useState, useRef } from 'react';
 
 import { Table } from "semantic-ui-react"; 
+import Popup from 'reactjs-popup';
+import BlurCard from "../ui/BlurCard";
 //npm install semantic-ui-react 
 //npm install semantic-ui-css
 
@@ -24,6 +26,7 @@ function UserScreen(){
     const firstNameInputRef = useRef();
     const lastNameInputRef = useRef();
     const birthDayInputRef = useRef();
+    const friendInputRef = useRef();
 
     const [user, setUser] = useState([]);
 
@@ -106,19 +109,48 @@ function UserScreen(){
         alert("Information Updated");
     }
 
+    async function addFriend(){
+        let uID = JSON.parse(localStorage.getItem("userInformation"))[0].id;
+        //alert("http://localhost:8080/api/create/userfriendwname/".concat(uID).concat("/").concat(friendInputRef.current.value));
+        var response = await fetch("http://localhost:8080/api/create/userfriendwname/".concat(uID).concat("/").concat(friendInputRef.current.value), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        var json = await response.json();
+        if(response.ok && json === true){
+            alert("Friend Added");
+            friendListHandler(JSON.parse(localStorage.getItem("userInformation")));
+            tripListHandler(JSON.parse(localStorage.getItem("userInformation")));
+        }else{
+            alert("Friend Not Found");
+        }
+
+    }
+
+    async function removeFriend(userNameR){
+        let uID = JSON.parse(localStorage.getItem("userInformation"))[0].id;
+        //alert("http://localhost:8080/api/remove/userfriendwname/".concat(uID).concat("/").concat(userNameR));
+        var response = await fetch("http://localhost:8080/api/remove/userfriendwname/".concat(uID).concat("/").concat(userNameR), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        var json = await response.json();
+        if(response.ok && json === true){
+            alert("Friend Removed");
+            friendListHandler(JSON.parse(localStorage.getItem("userInformation")));
+            tripListHandler(JSON.parse(localStorage.getItem("userInformation")));
+        }else{
+            alert("Error Removing Friend");
+        }
+    }
+
     const [checkedLogIn, setCheckedLogIn] = useState(false);
-    if(localStorage.getItem("userInformation") != null && !checkedLogIn){
+    if(localStorage.getItem("userInformation") !== 'null' && !checkedLogIn){
         setIsLoggedIn(true);
         setCheckedLogIn(true);
     }
-    
+
     if(!isLoggedIn && !loadedUser){
         return(
             <div  >
                 <ToolBar />
                 <div className='centered'>                
                     <LogInForm onLogin={loginHandler}/>
-                    <button type='button'>New User</button>
+                    <button className='button-4' type='button' onClick={event =>  {window.location.href='/NewUser'}}>New User</button>
                 </div>
             </div>
         );
@@ -137,6 +169,14 @@ function UserScreen(){
                 <div className='split topleft'>
                     <div className='quarterscreen'>
                         <h2>Friends</h2>
+                        <Popup trigger={<button className='button-4'>Add Friend</button>}>
+                            <BlurCard>
+                                <div>
+                                    <label htmlFor='friend'>User Name: </label>
+                                    <input type='text' id='userName' ref={friendInputRef}></input>
+                                    <div><button className='button-4' onClick={addFriend}>Add</button></div>
+                                </div>
+                            </BlurCard></Popup>
                         <Table className='userTable'>
                             <Table.Header>
                                 <Table.Row>
@@ -150,6 +190,7 @@ function UserScreen(){
                                     <Table.Row key={el.id}>
                                         <Table.Cell>{el.firstName}</Table.Cell>
                                         <Table.Cell>{el.lastName}</Table.Cell>
+                                        <Table.Cell><button className='button-4' onClick={event => {removeFriend(el.userName)}}>Remove</button></Table.Cell>
                                     </Table.Row>
                                     );
                                 })}
@@ -179,11 +220,11 @@ function UserScreen(){
                                     <input type='text' id='birthDay' ref={birthDayInputRef}></input>
                                 </div>
                                 <div>
-                                    <button>Update Information</button>
+                                    <button className='button-4' >Update Information</button>
                                 </div>    
                             </div>
                         </form>
-                        <button onClick={logOut}>LogOut</button>
+                        <button className='button-4' onClick={logOut}>LogOut</button>
                     </div>
                 </div>
                 <div className='split right'>
@@ -204,7 +245,7 @@ function UserScreen(){
                                         <Table.Cell>{el.name}</Table.Cell>
                                         <Table.Cell>{el.startDate}</Table.Cell>
                                         <Table.Cell>{el.endDate}</Table.Cell>
-                                        <Table.Cell><button onClick={event =>  {window.location.href='/TripScreen'; localStorage.setItem("trip", JSON.stringify(el));}}>Open</button></Table.Cell>
+                                        <Table.Cell><button className='button-4' onClick={event =>  {window.location.href='/TripScreen'; localStorage.setItem("trip", JSON.stringify(el));}}>Open</button></Table.Cell>
                                     </Table.Row>
                                     );
                                 })}

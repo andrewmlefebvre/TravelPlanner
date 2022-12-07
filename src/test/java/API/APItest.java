@@ -35,4 +35,10 @@ public class APItest {
         assertTrue(w.getTemp() != null);
         assertTrue(w.getFeelsLike() != null);
     }
+
+    @Test
+    public void restTest(){
+        LocationCoords c =  GeoAPI.fowardGeoCode(location.getStreet(), location.getCity(), location.getState(), location.getPostal(), location.getCountry());
+        List<Nearby> n = AdvisorAPI.getNearby(c.getLat(), c.getLon());
+    }
 }

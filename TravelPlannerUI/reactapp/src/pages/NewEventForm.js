@@ -87,7 +87,7 @@ function NewEventForm(props){
                         <input type='text' id='endDate' ref={endDateRef}></input>
                     </div> 
                     <div>
-                        <button>Add</button>
+                        <button  className='button-4'>Add</button>
                     </div>    
                 </div>
             </form>

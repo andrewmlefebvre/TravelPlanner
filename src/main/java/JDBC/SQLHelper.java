@@ -2,6 +2,7 @@ package JDBC;
 
 import API.APIUtil;
 import API.LocationCoords;
+import API.Nearby;
 import API.Weather;
 import Entity.*;
 
@@ -421,6 +422,76 @@ public class SQLHelper {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void removeFriend(User user1, User user2){
+        String q = "DELETE FROM FRIENDS WHERE userID = "+user1.getID()+" and friendID = "+user2.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            p.executeUpdate(q);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void addAdvisorInfo(List<Nearby> info, Event event){
+        for(Nearby n : info){
+            String q = "INSERT INTO NEARBY VALUES(null, '"+n.getName()+"','"+n.getAddress()+"','"+n.getDes()+"',"+event.getID()+");";
+            log(q);
+            try{
+                Connection con = JConnection.getConnection(dName);
+                PreparedStatement p = con.prepareStatement(q);
+                p.executeUpdate(q, Statement.RETURN_GENERATED_KEYS);
+                ResultSet rs = p.getGeneratedKeys();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public List<Nearby> getNearby(Event event){
+        List<Nearby> out = new LinkedList<>();
+        String q = "SELECT * FROM NEARBY WHERE eventID = "+event.getID()+";";
+        log(q);
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()){
+                out.add(new Nearby(rs.getString("name"), rs.getString("address"), rs.getString("des")));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return out;
+    }
+
+    public Event getEventByID(Integer ID){
+        String q = "SELECT * FROM EVENT WHERE ID = "+ID+";";
+        log(q);
+        Event event = null;
+        try{
+            Connection con = JConnection.getConnection(dName);
+            PreparedStatement p = con.prepareStatement(q);
+            ResultSet rs = p.executeQuery();
+            while(rs.next()){
+                if(rs.getString(2).equalsIgnoreCase("Activity")) {
+                    event = (new Activity(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
+                }else if (rs.getString(2).equalsIgnoreCase("Transportation")){
+                    event = (new Transportation(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
+                }else if (rs.getString(2).equalsIgnoreCase("Dwelling")){
+                    event = (new Dwelling(rs.getInt(1), rs.getString(3), new Location(rs.getString("street"), rs.getString("city"), rs.getString("state"), rs.getString("postal"), rs.getString("country")), null, rs.getDate("startDate"), rs.getDate("endDate")));
+                }else{
+                    throw new Exception("UNDEFINED EVENT TYPE");
+                }
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return event;
     }
 
 

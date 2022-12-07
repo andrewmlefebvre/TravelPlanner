@@ -1,9 +1,6 @@
 package Rest;
 
-import API.GeoAPI;
-import API.LocationCoords;
-import API.Weather;
-import API.WeatherAPI;
+import API.*;
 import Entity.*;
 import JDBC.SQLHelper;
 import lombok.AllArgsConstructor;
@@ -28,20 +25,22 @@ public class RestActions {
     }
 
     //-----------------------CREATE------------------------------
-    @GetMapping("/api/create/user/{first}/{last}/{dob}/{address}/{userName}")
+    @GetMapping("/api/create/user/{first}/{last}/{dob}/{address}/{userName}/{password}")
     @ResponseStatus(HttpStatus.CREATED)
-    public static @ResponseBody User createUser(@PathVariable("first") String first,
+    public static @ResponseBody List<User> createUser(@PathVariable("first") String first,
                                   @PathVariable("last") String last,
                                   @PathVariable("dob") @DateTimeFormat(pattern = "yyyy-MM-dd")  java.util.Date dob,
                                   @PathVariable("address") String address,
                                   @PathVariable("userName") String userName,
-                                  @PathVariable("userName") String password){
+                                  @PathVariable("password") String password){
         System.out.println(dob);
         try{
             SQLHelper sql = new SQLHelper();
             User user = new User(null, first, last, new Date(dob.getTime()), address, userName, password);
             sql.addUser(user);
-            return user;
+            List<User> out = new LinkedList<>();
+            out.add(user);
+            return out;
         }catch(Exception e){
             throw e;
         }
@@ -58,6 +57,44 @@ public class RestActions {
         }catch(Exception e){
             throw e;
         }
+    }
+
+    @GetMapping("/api/create/userfriendwname/{user1}/{user2}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public static @ResponseBody boolean createUserFriend(@PathVariable("user1") Integer user1ID, @PathVariable("user2") String user2Name){
+        try{
+            SQLHelper sql = new SQLHelper();
+            User user1 = sql.getUserWithID(user1ID);
+            User user2 = sql.getUserWithUserName(user2Name);
+            if(user1 != null && user2 != null){
+                sql.setFriend(user1, user2);
+                return true;
+            }else{
+                 throw new Exception("User not found");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @GetMapping("/api/remove/userfriendwname/{user1}/{user2}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public static @ResponseBody boolean removeUserFriend(@PathVariable("user1") Integer user1ID, @PathVariable("user2") String user2Name){
+        try{
+            SQLHelper sql = new SQLHelper();
+            User user1 = sql.getUserWithID(user1ID);
+            User user2 = sql.getUserWithUserName(user2Name);
+            if(user1 != null && user2 != null){
+                sql.removeFriend(user1, user2);
+                return true;
+            }else{
+                throw new Exception("User not found");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @PostMapping("/api/create/trip/{name}/{arrival}/{departal}/{userID}")
@@ -143,7 +180,11 @@ public class RestActions {
     public static @ResponseBody List<Trip> getTripsByUser(@PathVariable("userID") Integer userID){
         SQLHelper sql = new SQLHelper();
         User user = sql.getUserWithID(userID);
-        return sql.getTripsFromUser(user);
+        List<Trip> out = sql.getTripsFromUser(user);
+        for(User f : sql.getFriendsOfUser(sql.getUserWithID(userID))){
+            out.addAll(sql.getTripsFromUser(f));
+        }
+        return out;
     }
 
     @GetMapping("/api/get/friendsbyuser/{userID}")
@@ -186,6 +227,22 @@ public class RestActions {
         List<User> out = new LinkedList<>();
         out.add(sql.login(userName, password));
         return out;
+    }
+
+    @GetMapping("/api/get/nearby/{eventID}")
+    @ResponseStatus(HttpStatus.OK)
+    public static @ResponseBody List<Nearby> getNearby(@PathVariable("eventID") Integer ID){
+        SQLHelper sql = new SQLHelper();
+        Event event = sql.getEventByID(ID);
+        List<Nearby> preNearby = sql.getNearby(event);
+        if( preNearby.size() > 0){
+            return preNearby;
+        }else{
+            LocationCoords c = APIUtil.getCoordsForEvent(event);
+            sql.addAdvisorInfo(AdvisorAPI.getNearby(c.getLat(), c.getLon()), event);
+        }
+
+        return sql.getNearby(event);
     }
 
     //-----------------------GET---------------------------------

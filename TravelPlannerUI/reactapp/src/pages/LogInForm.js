@@ -23,7 +23,7 @@ function LogInForm(props){
         <BlurCard>
             <div>
                 <form onSubmit={submitHandler}>
-                    <div>
+                    <div className='inline'>
                         <div>
                             <h1>LogIn</h1>
                         </div>
@@ -35,7 +35,7 @@ function LogInForm(props){
                             <label htmlFor='password'>Password: </label>
                             <input type='password' id='password' ref={passwordRef} securetextentry="true" ></input>
                         </div>    
-                        <div className='nooverlay'>
+                        <div>
                             <button type='submit' id='submit'>Login</button>
                         </div>    
                     </div>

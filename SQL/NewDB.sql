@@ -90,10 +90,13 @@ CREATE TABLE IF NOT EXISTS EVENT(
 
 CREATE TABLE IF NOT EXISTS NEARBY(
 	ID int NOT NULL AUTO_INCREMENT,
+    name varchar(255),
 	address varchar(255),
-	name varchar(255),
-	type varchar(255),
-
+    des varchar(999),
+    
+    eventID int NOT NULL,
+    
+    FOREIGN KEY (eventID) REFERENCES EVENT(ID) ON DELETE CASCADE,
 	PRIMARY KEY (ID)
 );
 
@@ -110,6 +113,7 @@ CREATE TABLE IF NOT EXISTS APIINFORMATION(
     UV float,
     wind float,
 
+
 	PRIMARY KEY (ID),
 	FOREIGN KEY (eventID) REFERENCES EVENT(ID) ON DELETE CASCADE
 );
@@ -120,17 +124,10 @@ DELIMITER ;
 
 CALL WIPE();
 
-INSERT INTO USER VALUES (null, 'Test1', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User2', 'apple');
-INSERT INTO USER VALUES (null, 'Test2', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User3', 'apple');
-INSERT INTO USER VALUES (null, 'Test3', 'Lefebvre', '2000-06-03', '21 Test Ave Kingston RI 02882','User4', 'apple');
+SELECT * FROM NEARBY;
 
-INSERT INTO TRIP VALUES (null, "Florida", '2022-12-01', '2022-12-05');
-INSERT INTO TRIP VALUES (null, "Iceland", '2022-12-01', '2022-12-05');
 
-INSERT INTO USERTRIP VALUES (null, 1, 1);
-INSERT INTO USERTRIP VALUES (null, 1, 2);
 
-INSERT INTO FRIENDS VALUES(null, 1, 2);
-INSERT INTO FRIENDS VALUES(null, 2, 1);
-INSERT INTO FRIENDS VALUES(null, 1, 3);
+
+
 

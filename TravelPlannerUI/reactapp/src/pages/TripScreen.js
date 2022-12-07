@@ -16,11 +16,13 @@ import sunny from "../sunny.png";
 import partly from "../partly.png";
 import rainy from "../rainy.png";
 import windy from "../windy.png";
+import Popup from 'reactjs-popup';
 
 function TripScreen(){
     const [tripStarted, setTripStarted] = useState(false);
     const [tripEvents, setTripEvents] = useState([]);
     const [thisTrip, setThisTrip] = useState([]);
+    const [nearby, setNearby] = useState([]);
 
     async function tripStartHandler(TripInfo){
         //alert("http://localhost:8080/api/create/trip/".concat(TripInfo.name).concat("/").concat(TripInfo.start).concat("/").concat(TripInfo.end).concat("/").concat(JSON.parse(localStorage.getItem("userInformation"))[0].id));
@@ -78,6 +80,19 @@ function TripScreen(){
         }
     }
 
+    async function handleNearby(ID){
+        var response = await fetch("http://localhost:8080/api/get/nearby/".concat(ID), {method:'GET'}, {headers:{'Content-Type': 'application/json', 'Access-Control-Allow-Origin':'*'}});
+        var json = await response.json();
+        if(response.ok && json != null){
+            //alert(JSON.stringify(json));
+            setNearby([]);
+            setNearby(json);
+        }else{
+            alert("Nearby Failed to Load");
+        }
+    }
+
+
 
     if(!tripStarted && localStorage.getItem("trip") === 'null'){
         return(
@@ -106,6 +121,14 @@ function TripScreen(){
                                             <p>{el.api.des}</p>
                                             <p>Date: {el.startDate} - {el.endDate}</p>
                                             <p>{el.location.street} {el.location.city} {el.location.state} {el.location.postal} {el.location.country}</p>
+                                            <Popup trigger={<button className='button-4'>Nearby</button>}>
+                                                <BlurCard>
+                                                    <button className='button-4' onClick={event => {handleNearby(el.id)}}>Retrieve</button>
+                                                    <div>
+                                                        <p>temp</p>
+                                                    </div>
+                                                </BlurCard>
+                                            </Popup>
                                         </BlurCard>
                                         <img src={downArrow} alt="Logo" width='50' height='50'/>
                                     </dl>

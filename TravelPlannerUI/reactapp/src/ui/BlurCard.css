@@ -6,6 +6,7 @@
   font-family: sans-serif;
   margin: 3rem;
   background-color: #dfdfdf;
+  display:inline-block;
 }
 
 h1, h2 {
