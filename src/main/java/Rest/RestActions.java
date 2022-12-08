@@ -168,6 +168,7 @@ public class RestActions {
                 List<Event> out = sql.getEventsFromTrip(sql.getTripWithID(tripID).get(0));
                     out.stream().forEach(e -> {
                         sql.addWeatherInformation(e);
+                        sql.addCoordInformation(e);
                     });
                 return out.stream().map(e -> new DisplayableEvent(e.getID(), e.getSubtype(), e.getName(), e.getLocation(), e.getTrip(), e.getStartDate(), e.getEndDate(), sql.getAPIFromEvent(e), e.getFlightNumber())).toList();
             }
