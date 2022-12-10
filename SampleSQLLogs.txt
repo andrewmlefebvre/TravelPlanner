@@ -1,0 +1,360 @@
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.7.4)
+
+2022-12-09 21:32:16.159  INFO 320 --- [           main] Spring.Main                              : Starting Main using Java 19 on DESKTOP-CLJ3NER with PID 320 (C:\Users\Lvvo\TravelPlanner\target\classes started by Lvvo in C:\Users\Lvvo\TravelPlanner)
+2022-12-09 21:32:16.161  INFO 320 --- [           main] Spring.Main                              : No active profile set, falling back to 1 default profile: "default"
+2022-12-09 21:32:16.817  INFO 320 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-12-09 21:32:16.825  INFO 320 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-12-09 21:32:16.825  INFO 320 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-12-09 21:32:16.895  INFO 320 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-12-09 21:32:16.895  INFO 320 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 698 ms
+2022-12-09 21:32:17.152  INFO 320 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-12-09 21:32:17.158  INFO 320 --- [           main] Spring.Main                              : Started Main in 1.266 seconds (JVM running for 1.563)
+2022-12-09 21:32:21.875  INFO 320 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-09 21:32:21.875  INFO 320 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-12-09 21:32:21.876  INFO 320 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+SELECT * FROM TRIP;
+INSERT INTO EVENT VALUES (null,'Transportation','TF Green Airport','2000 Post Rd','Warwick','RI','02886','United States',1,'2022-05-05','2023-05-05','AA5335');
+INSERT INTO APIINFORMATION VALUES (null, 1, null, null, null, null, null, null, null);
+UPDATE EVENT SET flightNumber = 'AA5335' WHERE ID =1;
+SELECT TRIP.* FROM TRIP WHERE TRIP.ID = 1;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET lat = 41.72829, lon = -71.43815 WHERE eventID =1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT * FROM EVENT WHERE ID = 1;
+SELECT * FROM NEARBY WHERE eventID = 1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+INSERT INTO NEARBY VALUES(null, 'Pardon My Cheesesteak','1946 Post Road Warwick RI 02886','Hungry? Size matters! Get your cheesesteak fix satisfied with a 6″ or 12″ Classic Cheesesteak and a bucket of Loaded Cheesesteak Fries. Get spicy with the Chipotle Cheesesteak. Love Buffalo Chicken? We got Buffalo Chicken Cheesesteak for you! End on a high note with our Brownie Bites. Pardon My Cheesesteak is available for delivery and pick up in select locations nationwide.',1);
+INSERT INTO NEARBY VALUES(null, 'Shannon View Inn','1901 Post Rd Warwick RI 02886-1545','',1);
+INSERT INTO NEARBY VALUES(null, 'Providence Provisions','2000 Post Rd Gate 11 Warwick RI 02886-1533','Providence Provisions Kitchen & Bar is a Rhode Island tavern transported into the heart of T. F. Green Airport giving locals and visiting travelers the experience of being in a classic Rhode Island gastropub where everyone is welcome. Whether you are the craft beer enthusiast the gourmet foodie or the weary traveler looking for a beer and a hearty healthy meal Providence Provisions Kitchen & Bar will deliver.',1);
+INSERT INTO NEARBY VALUES(null, 'Starbucks','2000 Post Rd T. F. Green Airport Warwick RI 02886-1533','',1);
+INSERT INTO NEARBY VALUES(null, '','','',1);
+INSERT INTO NEARBY VALUES(null, 'Chipotle Mexican Grill','1800 Post Road Warwick RI 02886','',1);
+INSERT INTO NEARBY VALUES(null, 'Iron Works','697 Jefferson Blvd Warwick RI 02886-2213','More gastropub than classic tavern Iron Works serves innovative and updated takes on American classics. Open daily for outdoor dining and takeout',1);
+INSERT INTO NEARBY VALUES(null, 'Coast Line Diner','137 Kilvert St Warwick RI 02886-1323','',1);
+INSERT INTO NEARBY VALUES(null, 'Tavolo Wine Bar & Tuscan Grille Warwick','2099 Post Rd Warwick RI 02886-1413','',1);
+INSERT INTO NEARBY VALUES(null, 'El Marinero','137 Kilvert St Flr 1 Warwick RI 02886-1323','',1);
+INSERT INTO NEARBY VALUES(null, 'IHOP','1802 Post Rd Warwick RI 02886-1501','',1);
+INSERT INTO NEARBY VALUES(null, '','','',1);
+INSERT INTO NEARBY VALUES(null, 'The Office Kitchen & Bar','1795 Post Rd Warwick RI 02886-1512','',1);
+INSERT INTO NEARBY VALUES(null, 'Donats Place','163 Kilvert St Warwick RI 02886-1323','',1);
+INSERT INTO NEARBY VALUES(null, 'Walts Roast Beef','1759 Post Rd Warwick RI 02888-5962','',1);
+INSERT INTO NEARBY VALUES(null, 'Burger King','1748 Post Rd Warwick RI 02888','Theres a Burger King® restaurant near you at 1748 Post Rd. Visit us or call for more information. Every day more than 11 million guests visit over 13000 Burger King® restaurants near them in 97 countries around the world. And they do so because our fast food restaurants are known for serving high-quality great-tasting and affordable food. The Burger King® restaurant in Warwick RI serves burgers breakfast lunch and dinner prepared your way. The original HOME OF THE WHOPPER® our commitment to quality ingredients signature recipes iconic sandwiches like the flame-grilled WHOPPER® Sandwich and fast family-friendly dining experiences in a welcoming environment is what has defined our brand for more than 50 successful years.',1);
+INSERT INTO NEARBY VALUES(null, 'All Stars Bar and Grill','685 Airport Rd Warwick RI 02886-2427','',1);
+INSERT INTO NEARBY VALUES(null, 'Chelos Hometown Bar & Grill','2225 Post Rd Warwick RI 02886-1539','Located right on Greenwhich Bay in Warwick RI Chelos Waterfront Restaurant provides excellent views to go with your delicious food. We are closed for the season. Chelos Waterfront is closed for the season. Thank you to all our customers staff and acts for another great season! Were looking forward to seeing you all next year! Chelos Waterfront is available for private parties year round',1);
+INSERT INTO NEARBY VALUES(null, '','','',1);
+INSERT INTO NEARBY VALUES(null, 'Budweiser Bowtie','TF Green Airport Connector Road TF Green Airport Warwick RI 02886','',1);
+INSERT INTO NEARBY VALUES(null, 'Subway','2283 Post Road Warwick RI 02886','Your local Warwick Subway® Restaurant located at 2283 Post Road brings new bold flavors along with old favorites to satisfied guests every day. We deliver these mouth-watering flavors with our famous Footlongs 6" sandwiches wraps and salads. And we offer a variety of ways to order-quick and easy in the app or online convenient delivery come into your neighborhood shop for an in-restaurant meal or pick up curbside. Were proud to offer a change from same old fast food with fresh cut veggies and toppings with protein choices fresh-baked bread and lets not forget cookies! And were happy to help you with any catering needs as well. All Subway® Restaurants are independently owned and operated by business owners who employ talented Sandwich Artists™.',1);
+INSERT INTO NEARBY VALUES(null, 'Tavern 12','2299 Post Rd Warwick RI 02886-2246','',1);
+INSERT INTO NEARBY VALUES(null, 'Desarli','2299 Post Rd Flr 1 Warwick RI 02886-0000','',1);
+INSERT INTO NEARBY VALUES(null, 'Grid Iron Ale House & Grille','1599 Post Rd Warwick RI 02888-5965','',1);
+INSERT INTO NEARBY VALUES(null, 'Prata Bar & Grill','1599 Post Rd Warwick RI 02888-5965','',1);
+INSERT INTO NEARBY VALUES(null, 'Daves Bar & Grill','2339 Post Rd Warwick RI 02886-2246','',1);
+INSERT INTO NEARBY VALUES(null, 'Thai Excursion','1565 Post Rd Warwick RI 02888-5958','',1);
+INSERT INTO NEARBY VALUES(null, 'The Catering Gourmet','333 Strawberry Field Rd Warwick RI 02886-2476','',1);
+INSERT INTO NEARBY VALUES(null, 'Sports View Pizza and Deli','170 Jefferson Blvd Warwick RI 02888-3838','',1);
+INSERT INTO NEARBY VALUES(null, 'Jefferson Diner','175 Jefferson Blvd Warwick RI 02888-3811','',1);
+INSERT INTO NEARBY VALUES(null, 'Greggs Restaurants','1359 Post Rd Warwick RI 02888-3224','',1);
+INSERT INTO NEARBY VALUES(null, 'Norwood Grille','1325 Post Rd Warwick RI 02888-3223','',1);
+INSERT INTO NEARBY VALUES(null, 'Newport Restaurant Group','300 Metro Center Boulevard Suite 100 Warwick RI 02886','A collection of unique restaurants and experiences guided by a group of employee-owners in the front and back of house who bring it everyday.',1);
+SELECT * FROM NEARBY WHERE eventID = 1;
+SELECT * FROM TRIP;
+INSERT INTO EVENT VALUES (null,'Dwelling','URI','45 Upper College RD','Kingston','RI','02881','United States',1,'2022-05-05','2023-05-05','null');
+INSERT INTO APIINFORMATION VALUES (null, 2, null, null, null, null, null, null, null);
+SELECT TRIP.* FROM TRIP WHERE TRIP.ID = 1;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET lat = 41.72829, lon = -71.43815 WHERE eventID =1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =2;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET lat = 41.48274, lon = -71.52575 WHERE eventID =2;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT * FROM EVENT WHERE ID = 2;
+SELECT * FROM NEARBY WHERE eventID = 2;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+INSERT INTO NEARBY VALUES(null, 'Kingston Pizza','63 Briar Ln Kingston South Kingstown RI 02881','Kingston Pizza has been in business since 1984. We are located at 63 Briar Ln Kingston RI 02881. We offer pizzas grinders calzones salads Italian dinners and more. We are constantly creating new and innovative menu items that truly set Kingston Pizza apart from the competition. Call us today for more information.',2);
+INSERT INTO NEARBY VALUES(null, 'Pier Pizza','56 Fortin Rd Kingston South Kingstown RI 02881-1410','',2);
+INSERT INTO NEARBY VALUES(null, 'Dunkin','120 Fortin Rd Kingston South Kingstown RI 02881-1428','Americas favorite all-day everyday stop for coffee espresso breakfast sandwiches and donuts. Order your Dunkin faves ahead of time with the Dunkin mobile app for a fast grab and go experience.',2);
+INSERT INTO NEARBY VALUES(null, 'I Zone','100 Fortin Rd Kingston South Kingstown RI 02881-1440','',2);
+INSERT INTO NEARBY VALUES(null, '','','',2);
+INSERT INTO NEARBY VALUES(null, 'The Ice Cream Shop','100 Fortin Rd West Kingston South Kingstown RI 02881-1440','',2);
+INSERT INTO NEARBY VALUES(null, 'The Rhode House Cafe','99 Fortin Rd Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'International Slice Pizza','99 Fortin Rd Ste 130 Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'Krazy Fusion Cafe','99 Fortin Rd Unit 104 Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'Albies Place','99 Fortin Rd Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'Davos','99 Fortin Rd Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, '','','',2);
+INSERT INTO NEARBY VALUES(null, 'Simply Thai','99 Fortin Rd Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'Caliente Mexican Grill','99 Fortin Rd Ste 3J Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'International Pocket Cafe','99 Fortin Rd Ste 124 Kingston South Kingstown RI 02881-1426','',2);
+INSERT INTO NEARBY VALUES(null, 'Subway','99 Fortin Rd Suite 118 & 119 Kingston South Kingstown RI 02881','Your local Kingston Subway® Restaurant located at 99 Fortin Rd brings new bold flavors along with old favorites to satisfied guests every day. We deliver these mouth-watering flavors with our famous Footlongs 6" sandwiches wraps and salads. And we offer a variety of ways to order-quick and easy in the app or online convenient delivery come into your neighborhood shop for an in-restaurant meal or pick up curbside. Were proud to offer a change from same old fast food with fresh cut veggies and toppings with protein choices fresh-baked bread and lets not forget cookies! And were happy to help you with any catering needs as well. All Subway® Restaurants are independently owned and operated by business owners who employ talented Sandwich Artists™.',2);
+SELECT * FROM NEARBY WHERE eventID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT user.* FROM user WHERE user.userName = 'test2' and user.password = 'test2';
+Thu May 05 00:00:00 EDT 2022
+INSERT INTO USER VALUES (null, 'test2', 'test2', '122-4-5', 'test2','test2','test2');
+SELECT user.* FROM user WHERE user.userName = 'test2' and user.password = 'test2';
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT User.* FROM USER WHERE USER.userName = 'test';
+INSERT INTO FRIENDS VALUES (null,2,1);
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT User.* FROM USER WHERE USER.userName = 'test';
+DELETE FROM FRIENDS WHERE userID = 2 and friendID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT User.* FROM USER WHERE USER.userName = 'test';
+INSERT INTO FRIENDS VALUES (null,2,1);
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT * FROM TRIP;
+INSERT INTO EVENT VALUES (null,'Transportation','TF Green Airport','2000 Post Rd','Warwick','RI','02886','United States',1,'2022-05-05','2023-05-05','AA5335');
+INSERT INTO APIINFORMATION VALUES (null, 3, null, null, null, null, null, null, null);
+UPDATE EVENT SET flightNumber = 'AA5335' WHERE ID =3;
+SELECT TRIP.* FROM TRIP WHERE TRIP.ID = 1;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET lat = 41.72829, lon = -71.43815 WHERE eventID =1;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =2;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET lat = 41.48274, lon = -71.52575 WHERE eventID =2;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =3;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=2000%20Post%20Rd%20RIWarwick02886United%20States&format=json
+{"result":{"input":{"address":{"address":"2000 Post Rd Warwick RI 02886 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"159146383"},"coordinates":{"x":-71.43815179101975,"y":41.72829034276339},"addressComponents":{"zip":"02886","streetName":"POST","preType":"","city":"WARWICK","preDirection":"","suffixDirection":"","fromAddress":"1942","state":"RI","suffixType":"RD","toAddress":"2080","suffixQualifier":"","preQualifier":""},"matchedAddress":"2000 POST RD, WARWICK, RI, 02886"}]}}
+UPDATE APIINFORMATION SET lat = 41.72829, lon = -71.43815 WHERE eventID =3;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 3;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 3;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+INSERT INTO TRIP VALUES (null,'Test','2022-05-05','2023-05-05');
+SELECT * FROM USER WHERE USER.ID =2;
+INSERT INTO USERTRIP VALUES (null,2,2);
+SELECT * FROM TRIP;
+INSERT INTO EVENT VALUES (null,'Activity','URI','45 Upper College RD','Kingston','RI','02881','United States',2,'2022-05-05','2023-05-05','null');
+INSERT INTO APIINFORMATION VALUES (null, 4, null, null, null, null, null, null, null);
+SELECT TRIP.* FROM TRIP WHERE TRIP.ID = 2;
+SELECT * FROM Event WHERE EVENT.tripID = 2;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET temp = 39.2, des = 'Clear', feelsLike = 32.8, UV = 1.0, wind = 17.4 WHERE eventID =4;
+ https://eec19846-geocoder-us-census-bureau-v1.p.rapidapi.com/locations/onelineaddress?benchmark=Public_AR_Current&address=45%20Upper%20College%20RD%20RIKingston02881United%20States&format=json
+{"result":{"input":{"address":{"address":"45 Upper College RD Kingston RI 02881 United States"},"benchmark":{"isDefault":true,"benchmarkDescription":"Public Address Ranges - Current Benchmark","id":"4","benchmarkName":"Public_AR_Current"}},"addressMatches":[{"tigerLine":{"side":"L","tigerLineId":"58901973"},"coordinates":{"x":-71.52574907980035,"y":41.48273924955446},"addressComponents":{"zip":"02881","streetName":"UPPER COLLEGE","preType":"","city":"KINGSTON","preDirection":"","suffixDirection":"","fromAddress":"51","state":"RI","suffixType":"RD","toAddress":"23","suffixQualifier":"","preQualifier":""},"matchedAddress":"45 UPPER COLLEGE RD, KINGSTON, RI, 02881"}]}}
+UPDATE APIINFORMATION SET lat = 41.48274, lon = -71.52575 WHERE eventID =4;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 4;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 2;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 4;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM TRIP;
+SELECT * FROM Event WHERE EVENT.tripID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 1;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 2;
+SELECT APIINFORMATION.* FROM APIINFORMATION WHERE APIINFORMATION.eventID = 3;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT User.* FROM USER WHERE USER.userName = 'test';
+DELETE FROM FRIENDS WHERE userID = 2 and friendID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT User.* FROM USER WHERE USER.userName = 'test';
+INSERT INTO FRIENDS VALUES (null,2,1);
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT user.* FROM user WHERE user.userName = 'test' and user.password = 'test';
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT User.* FROM USER WHERE USER.userName = 'test2';
+INSERT INTO FRIENDS VALUES (null,1,2);
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT user.* FROM user WHERE user.userName = 'test' and user.password = 'test';
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 1;
+SELECT * FROM USER WHERE USER.ID =1;
+SELECT FRIENDS.friendID FROM FRIENDS JOIN USER on USER.ID = FRIENDS.friendID WHERE FRIENDS.userID = 1;
+SELECT * FROM USER WHERE USER.ID =2;
+SELECT TRIP.* FROM USER JOIN USERTRIP on USERTRIP.userID = USER.ID JOIN TRIP on TRIP.ID = USERTRIP.tripID WHERE USER.ID = 2;
+
+Process finished with exit code 130
